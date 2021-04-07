@@ -6,5 +6,5 @@
 * 어플 사용자들 간의 경로 공유 게시판 운영<br>
 * 주기별 나의 운동 통계 기능 <br>
 * 스마트워치를 이용한 운동 경로 추적 및 저장 기능 <br><br>
-**3. 개발환경 및 사용언어**  <br> Windows 10 / AndroidStudio / JAVA
+**3. 개발환경 및 사용언어**  <br> Windows 10 / AndroidStudio / JAVA<br><br>
 **4. 사용법**
