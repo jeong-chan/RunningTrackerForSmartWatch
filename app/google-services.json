@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "37909182537",
+    "project_id": "registerloginexample-8d3f3",
+    "storage_bucket": "registerloginexample-8d3f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37909182537:android:30d98b8f37603b834ce798",
+        "android_client_info": {
+          "package_name": "com.example.registerloginexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37909182537-ogpmm81lrervhrqh1s0n9nsmt0gngt5i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEEEgHCb7e7WY73cB7_ptOowDWT4NzF98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37909182537-ogpmm81lrervhrqh1s0n9nsmt0gngt5i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
