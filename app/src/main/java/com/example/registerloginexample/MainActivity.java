@@ -2,35 +2,57 @@ package com.example.registerloginexample;
 
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicMarkableReference;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
+    private Uri uri;
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
+    private StorageReference mountainImagesRef;
     private Button mStartBtn, mStopBtn, mPauseBtn;
     public static TextView mTimeTextView,mSpeedTextView,mDistanceView,mKcalView;
     public static int mSec,Sec,min,hour;
     private Thread timeThread = null;
     private static Boolean isRunning = false;
-
 
     @Override
     public void onClick(View view) {
@@ -45,7 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        storage  = FirebaseStorage.getInstance();
+        storageRef  = storage.getReference();
         //뷰페이저 세팅
         ViewPager viewPager = findViewById(R.id.viewPager);
         VPAdapter fragmentPagerAdapter = new VPAdapter(getSupportFragmentManager());
@@ -111,6 +134,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mPauseBtn.setVisibility(View.GONE);
                 timeThread.interrupt();
 
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("알람 팝업")
+                        .setMessage("공유하시겠습니까?")
+                        .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getApplicationContext(),"취소",Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+/*
+                                    GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
+                                        @Override
+                                        public void onSnapshotReady(Bitmap bitmap) {
+                                            try {
+                                                String FileName = "TestRoute";
+                                                saveBitmapToPNG(bitmap,FileName);
+
+
+                                                storageRef.putFile(uri);
+                                                mountainImagesRef = storageRef.child(FileName);
+
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    };
+                                    fragMonday.getmMap().snapshot(callback);
+*/
+                                Intent intent = new Intent(MainActivity.this, WritePostActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .show();
+
                 fragMonday.MapClear();
                 fragMonday.setSpeed(0);
                 fragMonday.setDistance(0);
@@ -118,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mSpeedTextView.setText("0.00km/h");
                 mDistanceView.setText("0.00km");
                 mKcalView.setText("0.00Kcal");
+
             }
         });
 
@@ -231,7 +292,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (actionBar != null)
             actionBar.hide();
     }
+/*
+    private void saveBitmapToPNG(Bitmap bitmap, String name) {
 
+
+        //내부저장소 캐시 경로를 받아옵니다.
+        File storage = getCacheDir();
+
+        //저장할 파일 이름
+        String fileName = name + ".jpg";
+
+        //storage 에 파일 인스턴스를 생성합니다.
+        File tempFile = new File(storage, fileName);
+
+        try {
+
+            // 자동으로 빈 파일을 생성합니다.
+            tempFile.createNewFile();
+
+            // 파일을 쓸 수 있는 스트림을 준비합니다.
+            FileOutputStream out = new FileOutputStream(tempFile);
+
+            // compress 함수를 사용해 스트림에 비트맵을 저장합니다.
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            uri = Uri.fromFile(new File(String.valueOf(out)));
+
+            // 스트림 사용후 닫아줍니다.
+            out.close();
+
+        } catch (FileNotFoundException e) {
+            Log.e("MyTag","FileNotFoundException : " + e.getMessage());
+        } catch (IOException e) {
+            Log.e("MyTag","IOException : " + e.getMessage());
+        }
+    }
+*/
 }
 
 

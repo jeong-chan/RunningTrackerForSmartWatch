@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "37909182537",
-    "project_id": "registerloginexample-8d3f3",
-    "storage_bucket": "registerloginexample-8d3f3.appspot.com"
+    "project_number": "74958512307",
+    "project_id": "runtracker-df7a8",
+    "storage_bucket": "runtracker-df7a8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:37909182537:android:30d98b8f37603b834ce798",
+        "mobilesdk_app_id": "1:74958512307:android:6c259925aa0899cb6f90c6",
         "android_client_info": {
           "package_name": "com.example.registerloginexample"
         }
       },
       "oauth_client": [
         {
-          "client_id": "37909182537-ogpmm81lrervhrqh1s0n9nsmt0gngt5i.apps.googleusercontent.com",
+          "client_id": "74958512307-rra6oqamv4c64jp2297mga8kp0s08kae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.registerloginexample",
+            "certificate_hash": "be2610a1a2251d3be3a59fe614cbd931816f04e2"
+          }
+        },
+        {
+          "client_id": "74958512307-95b7od59eguvn9g8dnac00hlcu01aahs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBEEEgHCb7e7WY73cB7_ptOowDWT4NzF98"
+          "current_key": "AIzaSyApNkIAknILwxDtAh9_x3JUmO_DXDCKqnU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "37909182537-ogpmm81lrervhrqh1s0n9nsmt0gngt5i.apps.googleusercontent.com",
+              "client_id": "74958512307-95b7od59eguvn9g8dnac00hlcu01aahs.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

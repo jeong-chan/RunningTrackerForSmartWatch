@@ -2,6 +2,7 @@ package com.example.registerloginexample;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,17 +13,27 @@ import android.widget.Spinner;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.maps.GoogleMap;
+
 public class WritePostActivity extends MainActivity {
-    private ImageView imageView1_test;
+    public static ImageView imageView1_test;
     private ArrayAdapter<CharSequence> adapter_city, adapter_sigungu;
     String choice_city = "";
     String choice_sigungu = "";
+
+    public static ImageView getImageView1_test() {
+        return imageView1_test;
+    }
 
     public void replaceFragment(FragTuesday fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
+    }
+
+    public static void setImageView1_test(ImageView imageView1_tests) {
+        imageView1_test = imageView1_tests;
     }
 
     @Override
@@ -36,7 +47,16 @@ public class WritePostActivity extends MainActivity {
         final Spinner spinnerCity = (Spinner) findViewById(R.id.spinner_city);
         final Spinner spinnerSigungu = (Spinner) findViewById(R.id.spinner_sigungu);
 
-        imageView1_test.setImageResource(R.drawable.pass_currect);
+        //imageView1_test.setImageResource(R.drawable.pass_currect);
+        GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
+            @Override
+            public void onSnapshotReady(Bitmap snapshot) {
+                imageView1_test.setImageBitmap(snapshot);
+            }
+        };
+
+
+
 
         adapter_city = ArrayAdapter.createFromResource(WritePostActivity.this, R.array.spinner_region,
                                                         android.R.layout.simple_spinner_dropdown_item);

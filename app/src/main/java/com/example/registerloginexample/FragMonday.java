@@ -43,7 +43,6 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     private FragmentActivity mContext;
 
     private static final String TAG = FragMonday.class.getSimpleName();
-    private GoogleMap mMap;
+    public static GoogleMap mMap;
     private MapView mapView;
     private Marker currentMarker;
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -147,6 +146,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     public void onStop() {
         super.onStop();
         mapView.onStop();
+        getActivity().finish();
     }
 
     @Override
@@ -419,6 +419,9 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    public static GoogleMap getmMap(){
+        return mMap;
+    }
 }
 
 
