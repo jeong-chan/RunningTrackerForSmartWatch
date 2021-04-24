@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Thread timeThread = null;
     private static Boolean isRunning = false;
     private GoogleMap snapmap;
-    public String location_lat, location_long, skcal, sdistance, timer;
+    public String location_lat, location_long, skcal, sdistance, timer, result_time;
     private ArrayList<String> login_latitude = new ArrayList<String>();
     private ArrayList<String> login_longitude = new ArrayList<String>();
     private ArrayList<LatLng> login_latlng = new ArrayList<>();
@@ -168,6 +168,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     @Override
                                     public void onSnapshotReady(Bitmap snapshot) {
                                         WritePostActivity.imageView1_test.setImageBitmap(snapshot);
+                                        WritePostActivity.result_distance_view.setText(fragMonday.nowdistance+"km/h");
+                                        WritePostActivity.result_kcal_view.setText(fragMonday.nowkcal+"kcal");
+                                        WritePostActivity.result_time_view.setText(result_time);
                                     }
                                 };
                                 snapmap = fragMonday.getmMap();
@@ -228,6 +231,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             timer = Integer.toString(msg.arg1);
             @SuppressLint("DefaultLocale") String result = String.format("%02d:%02d:%02d:%02d", hour, min, Sec, mSec);
             mTimeTextView.setText(result);
+            result_time = result;
         }
     };
 

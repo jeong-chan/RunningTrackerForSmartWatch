@@ -9,14 +9,43 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.maps.GoogleMap;
 
+import org.w3c.dom.Text;
+
 public class WritePostActivity extends MainActivity {
     public static ImageView imageView1_test;
+    public static TextView result_distance_view, result_time_view, result_kcal_view;
+
+    public static TextView getResult_distance_view() {
+        return result_distance_view;
+    }
+
+    public static void setResult_distance_view(TextView result_distance_view) {
+        WritePostActivity.result_distance_view = result_distance_view;
+    }
+
+    public static TextView getResult_time_view() {
+        return result_time_view;
+    }
+
+    public static void setResult_time_view(TextView result_time_view) {
+        WritePostActivity.result_time_view = result_time_view;
+    }
+
+    public static TextView getResult_kcal_view() {
+        return result_kcal_view;
+    }
+
+    public static void setResult_kcal_view(TextView result_kcal_view) {
+        WritePostActivity.result_kcal_view = result_kcal_view;
+    }
+
     private ArrayAdapter<CharSequence> adapter_city, adapter_sigungu;
     String choice_city = "";
     String choice_sigungu = "";
@@ -42,6 +71,9 @@ public class WritePostActivity extends MainActivity {
         setContentView(R.layout.activity_write_post);
 
         imageView1_test = (ImageView) findViewById(R.id.imageView);
+        result_time_view = (TextView) findViewById(R.id.post_time);
+        result_kcal_view = (TextView) findViewById(R.id.post_kcal);
+        result_distance_view = (TextView) findViewById(R.id.post_distance);
         findViewById(R.id.check_button).setOnClickListener(onClickListener);
         findViewById(R.id.cancel_button).setOnClickListener(onClickListener);
         final Spinner spinnerCity = (Spinner) findViewById(R.id.spinner_city);

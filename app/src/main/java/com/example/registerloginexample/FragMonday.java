@@ -43,6 +43,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
@@ -69,6 +71,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     private static final int DEFAULT_ZOOM=15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
+    public static String nowkcal, nowdistance, nowtime;
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int UPDATE_INTERVAL_MS = 1000*5*1;
@@ -360,7 +363,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     public void getnowdistance(){
         distance += mCurrentLocation.distanceTo(location); //mCurrnetLocation(최근위치)에서 location(현재위치)까지 이동거리
         DecimalFormat form = new DecimalFormat("#.##"); //소숫점 2번쨰 자리까지 출력
-        String nowdistance = Double.toString(Double.parseDouble(form.format(distance/1000))); //km로 단위변경
+        nowdistance = Double.toString(Double.parseDouble(form.format(distance/1000))); //km로 단위변경
         MainActivity.mDistanceView.setText(nowdistance+"km"); //MainActivity에 DistanceView에 이동거리 setText
     }
 
@@ -391,7 +394,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
 
         kcal += MET*(3.5*LoginActivity.user_db.getMember_weight()*(delay/60))/1000*5; //MET에따른운동강도*(3.5ml*kg*time(hour))/1000*5(1ml=0.005kacl)
         DecimalFormat form = new DecimalFormat("#.##"); //소숫점 2번쨰 자리까지 출력
-        String nowkcal = Double.toString(Double.parseDouble(form.format(kcal)));
+        nowkcal = Double.toString(Double.parseDouble(form.format(kcal)));
         MainActivity.mKcalView.setText(/*MET+"MET"+delay+"hour"+PersonalActivity.login_user_weight+"kg"+"\n"+*/nowkcal+"Kcal"); //MainActivity에 KcalView에 소모칼로리 setText
     }
 
