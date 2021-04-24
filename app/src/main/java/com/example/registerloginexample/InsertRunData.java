@@ -2,13 +2,12 @@ package com.example.registerloginexample;
 
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 //사용자의 경로,거리, 칼로리, 시간 DB에 저장
 public class InsertRunData extends StringRequest {
 
@@ -20,7 +19,7 @@ public class InsertRunData extends StringRequest {
 
 
     public InsertRunData(String userID, String run_Time, String run_Distance, String run_Kcal, String run_Date, Response.Listener<String> listener) {
-        super(Request.Method.POST, URL, listener, null);
+        super(Method.POST, URL, listener, null);
 
 
         System.out.println(run_Kcal+"시간은 "+ run_Time);

@@ -1,8 +1,8 @@
 package com.example.registerloginexample;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -44,6 +44,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,8 +57,8 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     private FragmentActivity mContext;
 
     private static final String TAG = FragMonday.class.getSimpleName();
-    public static GoogleMap mMap;
-    public static MapView mapView;
+    private static GoogleMap mMap;
+    private MapView mapView;
     private Marker currentMarker;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private LocationRequest locationRequest;
@@ -81,9 +82,14 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     private double distance = 0.0;
     private double kcal = 0.0;
     private double timeforkcal = -1;
+    private  String slatitude, slongitude ;
     double delay;
 
     public FragMonday(){
+    }
+
+    public interface OnTimePickerSetListener{
+        void onTimePickerSet(String latitude, String longitude, Double kcal, Double distance );
     }
 
     public void setSpeed(double speed) {
@@ -103,6 +109,16 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     public void onAttach(Activity activity) {
         mContext = (FragmentActivity) activity;
         super.onAttach(activity);
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        onTimePickerSetListener = (OnTimePickerSetListener) context;
+    }
+
+    public  void onDetach(){
+        super.onDetach();
+        onTimePickerSetListener=null;
     }
 
     public static FragMonday newInstance() {
@@ -147,7 +163,6 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     public void onStop() {
         super.onStop();
         mapView.onStop();
-        getActivity().finish();
     }
 
     @Override
@@ -284,6 +299,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     private LatLng startLatLng = new LatLng(0,0);
     private LatLng endLatLng = new LatLng(0,0);
     private LatLng currentPosition = new LatLng(0,0);
+    private OnTimePickerSetListener onTimePickerSetListener;
 
     LocationCallback locationCallback = new LocationCallback() {
         @Override
@@ -325,10 +341,20 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
                     getnowdistance();
                     getnowkcal();
                     drawPath();}
+
                 mCurrentLocation = location;
                 startLatLng = new LatLng(latitude,longitude);
+
+
+                slatitude = Double.toString(latitude);
+                slongitude = Double.toString(longitude);
+                System.out.println("위도는:"+slatitude+"경도는 "+slongitude+"칼로리는 "+kcal);
+                onTimePickerSetListener.onTimePickerSet(slatitude,slongitude,kcal,distance);
+
+                //onTimePickerSetListener.onTimePickerSet(slatitude,slongitude,kcal,distance);
             }
         }
+
     };
 
     public void getnowdistance(){
@@ -363,7 +389,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
             MET = 12;
         }
 
-        kcal += MET*(3.5*PersonalActivity.login_user_weight*(delay/60))/1000*5; //MET에따른운동강도*(3.5ml*kg*time(hour))/1000*5(1ml=0.005kacl)
+        kcal += MET*(3.5*LoginActivity.user_db.getMember_weight()*(delay/60))/1000*5; //MET에따른운동강도*(3.5ml*kg*time(hour))/1000*5(1ml=0.005kacl)
         DecimalFormat form = new DecimalFormat("#.##"); //소숫점 2번쨰 자리까지 출력
         String nowkcal = Double.toString(Double.parseDouble(form.format(kcal)));
         MainActivity.mKcalView.setText(/*MET+"MET"+delay+"hour"+PersonalActivity.login_user_weight+"kg"+"\n"+*/nowkcal+"Kcal"); //MainActivity에 KcalView에 소모칼로리 setText
@@ -423,17 +449,8 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     public static GoogleMap getmMap(){
         return mMap;
     }
-/*
-    public static void screenshot(){
-        GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
-            @Override
-            public void onSnapshotReady(Bitmap snapshot) {
 
-            }
-        }
-    }*/
 }
-
 
 
 

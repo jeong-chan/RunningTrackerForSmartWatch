@@ -1,53 +1,48 @@
 package com.example.registerloginexample;
 
 import android.annotation.SuppressLint;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.concurrent.atomic.AtomicMarkableReference;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, FragMonday.OnTimePickerSetListener {
     private Uri uri;
     private FirebaseStorage storage;
     private StorageReference storageRef;
@@ -58,6 +53,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Thread timeThread = null;
     private static Boolean isRunning = false;
     private GoogleMap snapmap;
+    public String location_lat, location_long, skcal, sdistance, timer;
+    private ArrayList<String> login_latitude = new ArrayList<String>();
+    private ArrayList<String> login_longitude = new ArrayList<String>();
+    //private String mJsonString;
+    private String location_ID = LoginActivity.user_db.getMember_id();// 현재 로그인한 사용자의 ID
+    private Date date = new Date();
+    SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd");
+    private String run_date = datetime.format(date);
+
     @Override
     public void onClick(View view) {
 
@@ -73,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         storage  = FirebaseStorage.getInstance();
         storageRef  = storage.getReference();
+
         //뷰페이저 세팅
         ViewPager viewPager = findViewById(R.id.viewPager);
         VPAdapter fragmentPagerAdapter = new VPAdapter(getSupportFragmentManager());
@@ -117,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
 
+                deleteLocation();
                 isRunning = true;
                 v.setVisibility(View.GONE);
                 mStopBtn.setVisibility(View.VISIBLE);
@@ -133,6 +139,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 isRunning = false;
+                for (int i= 0; i<login_longitude.size(); i++) {
+                  ArrayList<LatLng> login_latlng = new ArrayList<>();
+                  login_latlng.add(new LatLng(Double.parseDouble(login_latitude.get(i)), Double.parseDouble(login_longitude.get(i))));
+                }
+                saveRunData();
                 v.setVisibility(View.GONE);
                 mStartBtn.setVisibility(View.VISIBLE);
                 mPauseBtn.setVisibility(View.GONE);
@@ -159,36 +170,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     }
                                 };
                                 snapmap = fragMonday.getmMap();
-                                /*
-                                PolylineOptions rectOptions = new PolylineOptions()
-                                        .add(new LatLng(35.245648756104984, 128.67528413862215))
-                                        .add(new LatLng(35.24655498180968, 128.67688013305812));
 
-                                Polyline polyline = snapmap.addPolyline(rectOptions);*/
+                                PolylineOptions rectOptions = new PolylineOptions()
+                                        .add(new LatLng(35.24154869294329, 128.69568999787336))
+                                        .add(new LatLng(35.242188354851606, 128.6951750137158));
+
+                                Polyline polyline = snapmap.addPolyline(rectOptions);
                                 //여기서 디비에서 리스트로 LatLng받아와서 추가하면 맵에 그려짐 + 줌설정까지하면 완벽
                                 //그리고 파일화? 하고 디비랑 연동해서 게시판에 등록하고
                                 //게시판 이미지뷰에 클릭 이벤트 넣어서 MainActiviy에 똑같은 라인 그려지도록 저장
                                 //그러려면 리스트 하나를 이미지랑 같이 저장해둬야함
                                 snapmap.snapshot(callback);
-/*
-                                    GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
-                                        @Override
-                                        public void onSnapshotReady(Bitmap bitmap) {
-                                            try {
-                                                String FileName = "TestRoute";
-                                                saveBitmapToPNG(bitmap,FileName);
 
-
-                                                storageRef.putFile(uri);
-                                                mountainImagesRef = storageRef.child(FileName);
-
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    };
-                                    fragMonday.getmMap().snapshot(callback);
-*/
                                 Intent intent = new Intent(MainActivity.this, WritePostActivity.class);
                                 startActivity(intent);
                             }
@@ -202,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mSpeedTextView.setText("0.00km/h");
                 mDistanceView.setText("0.00km");
                 mKcalView.setText("0.00Kcal");
+
 
             }
         });
@@ -229,11 +223,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Sec = (msg.arg1 / 100) % 60;
             min = (msg.arg1 / 100) / 60;
             hour = (msg.arg1 / 100) / 3600;
-
+            timer = Integer.toString(msg.arg1);
             @SuppressLint("DefaultLocale") String result = String.format("%02d:%02d:%02d:%02d", hour, min, Sec, mSec);
             mTimeTextView.setText(result);
         }
     };
+
+    public void onTimePickerSet(String latitude, String longitude, Double kcal, Double distance) {
+        DecimalFormat form = new DecimalFormat("#.##");
+        location_lat = latitude;
+        location_long = longitude;
+        System.out.println("경도는!!!!!!!!!!!!  " + longitude);
+        skcal = Double.toString(Double.parseDouble(form.format(kcal)));
+        sdistance = Double.toString(Double.parseDouble(form.format(distance / 1000)));
+        login_latitude.add(latitude);
+        login_longitude.add(longitude);
+        saveLocation();
+    }
 
     //초시계 동작
     public class timeThread implements Runnable{
@@ -316,41 +322,103 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (actionBar != null)
             actionBar.hide();
     }
-/*
-    private void saveBitmapToPNG(Bitmap bitmap, String name) {
 
+    //사용자가 달린 경로 DB에 저장
+    public void saveLocation() {
+        if (isRunning == true) {
+            Response.Listener<String> responseListener = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean success = jsonObject.getBoolean("success");
+                        if (success) {//회원등록에 성공한 경우
+                            System.out.println("성공!!!!!!!!!!!!!!!!!!!");
 
-        //내부저장소 캐시 경로를 받아옵니다.
-        File storage = getCacheDir();
+                        } else {//회원등록에 실패한 경우
+                            System.out.println("실패.............");
+                            return;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-        //저장할 파일 이름
-        String fileName = name + ".jpg";
+                }
+            };
 
-        //storage 에 파일 인스턴스를 생성합니다.
-        File tempFile = new File(storage, fileName);
-
-        try {
-
-            // 자동으로 빈 파일을 생성합니다.
-            tempFile.createNewFile();
-
-            // 파일을 쓸 수 있는 스트림을 준비합니다.
-            FileOutputStream out = new FileOutputStream(tempFile);
-
-            // compress 함수를 사용해 스트림에 비트맵을 저장합니다.
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-            uri = Uri.fromFile(new File(String.valueOf(out)));
-
-            // 스트림 사용후 닫아줍니다.
-            out.close();
-
-        } catch (FileNotFoundException e) {
-            Log.e("MyTag","FileNotFoundException : " + e.getMessage());
-        } catch (IOException e) {
-            Log.e("MyTag","IOException : " + e.getMessage());
+            {
+                //서버로 Volley를 이용해서 요청을 함
+                InsertLocaion insertLocaion = new InsertLocaion(location_ID, location_lat, location_long, run_date, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+                queue.add(insertLocaion);
+            }
+        } else {
+            System.out.println("달리는 중이 아닙니다.");
         }
+
     }
-*/
+    //사용자의 최신 경로만 남을수 있도록 DB에서 이전 경로 삭제
+    public void deleteLocation() {
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if (success) {//회원등록에 성공한 경우
+                        System.out.println("삭제성공!!!!!!!!!!!!!!!!!!!");
+
+                    } else {//회원등록에 실패한 경우
+                        System.out.println("삭제실패.............");
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
+
+        {
+            //서버로 Volley를 이용해서 요청을 함
+            DeleteLocation deleteLocation = new DeleteLocation(location_ID, run_date, responseListener);
+            RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+            queue.add(deleteLocation);
+        }
+
+    }
+
+    public void saveRunData() {
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if (success) {//회원등록에 성공한 경우
+                        System.out.println("성공2!!!!!!!!!!!!!!!!!!!");
+
+                    } else {//회원등록에 실패한 경우
+                        System.out.println("실패2.............");
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
+        //서버로 Volley를 이용해서 요청을 함
+        InsertRunData insertRunData = new InsertRunData(location_ID, timer, sdistance, skcal, run_date, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        queue.add(insertRunData);
+
+    }
+
 }
+
+
 
 

@@ -20,7 +20,7 @@ public class DeleteLocation extends StringRequest {
 
         super(Request.Method.POST, URL, listener, null);
         map = new HashMap<>();
-        map.put("locationID",loginID);
+        map.put("userID",loginID);
         map.put("run_Date",run_date);
 
     }

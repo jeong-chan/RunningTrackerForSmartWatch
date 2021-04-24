@@ -1,9 +1,8 @@
 package com.example.registerloginexample;
 
 
-import java.sql.Struct;
 import java.util.ArrayList;
-import java.util.List;
+
 // 사용자의 개인정보와 현재 달린 경도와 위도
 public class User_DB {
     private String member_id;

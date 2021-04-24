@@ -46,7 +46,7 @@ public class PersonalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_personal);
 
        // System.out.println("personalActivity 실행");
-        String loginID = ((LoginActivity)LoginActivity.context_ID).ID_user;
+        String loginID = LoginActivity.user_db.getMember_id();
 
       //  System.out.println("된거니?"+loginID);
 
@@ -198,5 +198,4 @@ public class PersonalActivity extends AppCompatActivity {
         }
 
     }
-
 }
