@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public String location_lat, location_long, skcal, sdistance, timer;
     private ArrayList<String> login_latitude = new ArrayList<String>();
     private ArrayList<String> login_longitude = new ArrayList<String>();
+    private ArrayList<LatLng> login_latlng = new ArrayList<>();
     //private String mJsonString;
     private String location_ID = LoginActivity.user_db.getMember_id();// 현재 로그인한 사용자의 ID
     private Date date = new Date();
@@ -139,8 +140,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 isRunning = false;
+                login_latlng.clear();
                 for (int i= 0; i<login_longitude.size(); i++) {
-                  ArrayList<LatLng> login_latlng = new ArrayList<>();
                   login_latlng.add(new LatLng(Double.parseDouble(login_latitude.get(i)), Double.parseDouble(login_longitude.get(i))));
                 }
                 saveRunData();
@@ -171,12 +172,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 };
                                 snapmap = fragMonday.getmMap();
 
-                                PolylineOptions rectOptions = new PolylineOptions()
-                                        .add(new LatLng(35.24154869294329, 128.69568999787336))
-                                        .add(new LatLng(35.242188354851606, 128.6951750137158));
+                                PolylineOptions rectOptions = new PolylineOptions();
+                                        for(int j=0;j<login_latlng.size();j++) {
+                                            rectOptions.add(login_latlng.get(j));
+                                        }
 
                                 Polyline polyline = snapmap.addPolyline(rectOptions);
-                                //여기서 디비에서 리스트로 LatLng받아와서 추가하면 맵에 그려짐 + 줌설정까지하면 완벽
+                                //줌설정까지하면 완벽
                                 //그리고 파일화? 하고 디비랑 연동해서 게시판에 등록하고
                                 //게시판 이미지뷰에 클릭 이벤트 넣어서 MainActiviy에 똑같은 라인 그려지도록 저장
                                 //그러려면 리스트 하나를 이미지랑 같이 저장해둬야함
