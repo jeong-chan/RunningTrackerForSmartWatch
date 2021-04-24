@@ -2,6 +2,7 @@ package com.example.registerloginexample;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -56,7 +57,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
 
     private static final String TAG = FragMonday.class.getSimpleName();
     public static GoogleMap mMap;
-    private MapView mapView;
+    public static MapView mapView;
     private Marker currentMarker;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private LocationRequest locationRequest;
@@ -422,6 +423,15 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     public static GoogleMap getmMap(){
         return mMap;
     }
+/*
+    public static void screenshot(){
+        GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
+            @Override
+            public void onSnapshotReady(Bitmap snapshot) {
+
+            }
+        }
+    }*/
 }
 
 

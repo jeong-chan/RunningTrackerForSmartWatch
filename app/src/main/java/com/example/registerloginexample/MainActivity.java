@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
@@ -30,6 +31,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static int mSec,Sec,min,hour;
     private Thread timeThread = null;
     private static Boolean isRunning = false;
-
+    private GoogleMap snapmap;
     @Override
     public void onClick(View view) {
 
@@ -140,12 +144,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
                                 Toast.makeText(getApplicationContext(),"취소",Toast.LENGTH_LONG).show();
                             }
                         })
                         .setPositiveButton("예", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
+
+                                    @Override
+                                    public void onSnapshotReady(Bitmap snapshot) {
+                                        WritePostActivity.imageView1_test.setImageBitmap(snapshot);
+                                    }
+                                };
+                                snapmap = fragMonday.getmMap();
+                                /*
+                                PolylineOptions rectOptions = new PolylineOptions()
+                                        .add(new LatLng(35.245648756104984, 128.67528413862215))
+                                        .add(new LatLng(35.24655498180968, 128.67688013305812));
+
+                                Polyline polyline = snapmap.addPolyline(rectOptions);*/
+                                //여기서 디비에서 리스트로 LatLng받아와서 추가하면 맵에 그려짐 + 줌설정까지하면 완벽
+                                //그리고 파일화? 하고 디비랑 연동해서 게시판에 등록하고
+                                //게시판 이미지뷰에 클릭 이벤트 넣어서 MainActiviy에 똑같은 라인 그려지도록 저장
+                                //그러려면 리스트 하나를 이미지랑 같이 저장해둬야함
+                                snapmap.snapshot(callback);
 /*
                                     GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
                                         @Override
