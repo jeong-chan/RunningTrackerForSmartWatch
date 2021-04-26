@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public String location_lat, location_long, skcal, sdistance, timer, result_time;
     private ArrayList<String> login_latitude = new ArrayList<String>();
     private ArrayList<String> login_longitude = new ArrayList<String>();
-    private ArrayList<LatLng> login_latlng = new ArrayList<>();
+    public static ArrayList<LatLng> login_latlng = new ArrayList<>();
     //private String mJsonString;
     private String location_ID = LoginActivity.user_db.getMember_id();// 현재 로그인한 사용자의 ID
     private Date date = new Date();

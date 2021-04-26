@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,8 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
@@ -28,15 +32,19 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WritePostActivity extends MainActivity {
 
     public static ImageView imageView1_test;
     public static TextView result_distance_view, result_time_view, result_kcal_view;
+    public static EditText Title_view, RunningPlace_view, Comment_view;
     private String imgName = "osz.png";
-    public FirebaseStorage mFireStorage;
-    public StorageReference storageRef;
-    public Uri aUri;
+    public static FirebaseStorage mFireStorage;
+    public static StorageReference storageRef;
+    public static FirebaseDatabase database;
+    public static DatabaseReference databaseRef;
 
     public static TextView getResult_distance_view() {
         return result_distance_view;
@@ -91,6 +99,9 @@ public class WritePostActivity extends MainActivity {
         result_time_view = (TextView) findViewById(R.id.post_time);
         result_kcal_view = (TextView) findViewById(R.id.post_kcal);
         result_distance_view = (TextView) findViewById(R.id.post_distance);
+        Title_view = (EditText) findViewById(R.id.edit_Title);
+        Comment_view = (EditText) findViewById(R.id.edit_Comment);
+        RunningPlace_view = (EditText) findViewById(R.id.runnigplace);
         findViewById(R.id.check_button).setOnClickListener(onClickListener);
         findViewById(R.id.cancel_button).setOnClickListener(onClickListener);
         final Spinner spinnerCity = (Spinner) findViewById(R.id.spinner_city);
@@ -364,6 +375,8 @@ public class WritePostActivity extends MainActivity {
             switch (v.getId()) {
                 case R.id.check_button:
                     create_and_Delete(storageRef);
+                    //data_create_and_delete();
+                    data_create_and_delete();
                     break;
                 case R.id.cancel_button:
                     finish();
@@ -375,6 +388,8 @@ public class WritePostActivity extends MainActivity {
     public void initFirestore(){
         mFireStorage = FirebaseStorage.getInstance();
         storageRef = mFireStorage.getReference();
+        database = FirebaseDatabase.getInstance();
+        databaseRef = database.getReference();
     }
 
     public File saveBitmapToJpeg(Bitmap bitmap){
@@ -389,6 +404,13 @@ public class WritePostActivity extends MainActivity {
             Toast.makeText(getApplicationContext(), "파일저장실패", Toast.LENGTH_SHORT).show();
         }
         return tempFile;
+    }
+
+    public Bitmap getBitmapFromView(View view){
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
     }
 
     public void create_and_Delete(StorageReference ref){
@@ -424,11 +446,23 @@ public class WritePostActivity extends MainActivity {
         });
     }
 
-    public Bitmap getBitmapFromView(View view){
-        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
-        return bitmap;
+    public void data_create_and_delete(){
+        databaseRef.child(LoginActivity.user_db.getMember_id());
+
+        databaseRef.child(LoginActivity.user_db.getMember_id()).child("status").child("Distance").setValue(result_distance_view.getText());
+        databaseRef.child(LoginActivity.user_db.getMember_id()).child("status").child("Time").setValue(result_time_view.getText());
+        databaseRef.child(LoginActivity.user_db.getMember_id()).child("status").child("Kcal").setValue(result_kcal_view.getText());
+
+        databaseRef.child(LoginActivity.user_db.getMember_id()).child("Title").setValue(Title_view.getText().toString());
+        databaseRef.child(LoginActivity.user_db.getMember_id()).child("Comment").setValue(Comment_view.getText().toString());
+        databaseRef.child(LoginActivity.user_db.getMember_id()).child("RunningPlace").setValue(RunningPlace_view.getText().toString());
+
+        databaseRef.child(LoginActivity.user_db.getMember_id()).child("City/Sigungu").child("City").setValue(choice_city);
+        databaseRef.child(LoginActivity.user_db.getMember_id()).child("City/Sigungu").child("Sigungu").setValue(choice_sigungu);
+
+        databaseRef.child(LoginActivity.user_db.getMember_id()).child("LatLng").setValue(MainActivity.login_latlng.toString());
+
     }
+
 
 }

@@ -42,7 +42,7 @@
         android:padding="10dp" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/edit_Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -95,7 +95,7 @@
          </LinearLayout>
 
         <EditText
-            android:id="@+id/editTextTextMultiLine"
+            android:id="@+id/edit_Comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
