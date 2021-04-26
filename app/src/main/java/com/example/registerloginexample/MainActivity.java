@@ -43,10 +43,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, FragMonday.OnTimePickerSetListener {
-    private Uri uri;
-    private FirebaseStorage storage;
-    private StorageReference storageRef;
-    private StorageReference mountainImagesRef;
     private Button mStartBtn, mStopBtn, mPauseBtn;
     public static TextView mTimeTextView,mSpeedTextView,mDistanceView,mKcalView;
     public static int mSec,Sec,min,hour;
@@ -76,8 +72,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        storage  = FirebaseStorage.getInstance();
-        storageRef  = storage.getReference();
 
         //뷰페이저 세팅
         ViewPager viewPager = findViewById(R.id.viewPager);

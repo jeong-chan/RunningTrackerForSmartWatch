@@ -1,26 +1,42 @@
 package com.example.registerloginexample;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-import org.w3c.dom.Text;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class WritePostActivity extends MainActivity {
+
     public static ImageView imageView1_test;
     public static TextView result_distance_view, result_time_view, result_kcal_view;
+    private String imgName = "osz.png";
+    public FirebaseStorage mFireStorage;
+    public StorageReference storageRef;
+    public Uri aUri;
 
     public static TextView getResult_distance_view() {
         return result_distance_view;
@@ -69,6 +85,7 @@ public class WritePostActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_post);
+        initFirestore();
 
         imageView1_test = (ImageView) findViewById(R.id.imageView);
         result_time_view = (TextView) findViewById(R.id.post_time);
@@ -79,16 +96,12 @@ public class WritePostActivity extends MainActivity {
         final Spinner spinnerCity = (Spinner) findViewById(R.id.spinner_city);
         final Spinner spinnerSigungu = (Spinner) findViewById(R.id.spinner_sigungu);
 
-        //imageView1_test.setImageResource(R.drawable.pass_currect);
-        GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
-            @Override
-            public void onSnapshotReady(Bitmap snapshot) {
-                imageView1_test.setImageBitmap(snapshot);
-            }
-        };
-
-
-
+        try{
+            String imagepath = getCacheDir() + "/" + imgName;
+            Bitmap bm = BitmapFactory.decodeFile(imagepath);
+            imageView1_test.setImageBitmap(bm);
+        } catch (Exception e){
+        }
 
         adapter_city = ArrayAdapter.createFromResource(WritePostActivity.this, R.array.spinner_region,
                                                         android.R.layout.simple_spinner_dropdown_item);
@@ -350,7 +363,7 @@ public class WritePostActivity extends MainActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.check_button:
-
+                    create_and_Delete(storageRef);
                     break;
                 case R.id.cancel_button:
                     finish();
@@ -358,4 +371,64 @@ public class WritePostActivity extends MainActivity {
             }
         }
     };
+
+    public void initFirestore(){
+        mFireStorage = FirebaseStorage.getInstance();
+        storageRef = mFireStorage.getReference();
+    }
+
+    public File saveBitmapToJpeg(Bitmap bitmap){
+        File tempFile = new File(getCacheDir(), imgName);
+        try{
+            tempFile.createNewFile();
+            FileOutputStream out = new FileOutputStream(tempFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.close();
+            Toast.makeText(getApplicationContext(), "파일저장성공", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), "파일저장실패", Toast.LENGTH_SHORT).show();
+        }
+        return tempFile;
+    }
+
+    public void create_and_Delete(StorageReference ref){
+        Bitmap tmp_map = getBitmapFromView(imageView1_test);
+        File tmp_file = saveBitmapToJpeg(tmp_map);
+        Uri uri = Uri.fromFile(tmp_file);
+
+        UploadTask uploadTask = ref.child(LoginActivity.user_db.getMember_id()+"_map_images").putFile(uri);
+
+        StorageReference next_ref = ref.child(LoginActivity.user_db.getMember_id()+"map+images");
+
+        next_ref.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+            }
+        });
+    }
+
+    public Bitmap getBitmapFromView(View view){
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
+    }
+
 }
