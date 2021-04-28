@@ -35,6 +35,7 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".CheckPostActivity"/>
         <activity android:name=".PersonalActivity" />
         <activity android:name=".WritePostActivity"
                   android:screenOrientation="portrait"

@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     @Override
                                     public void onSnapshotReady(Bitmap snapshot) {
                                         WritePostActivity.imageView1_test.setImageBitmap(snapshot);
-                                        WritePostActivity.result_distance_view.setText(fragMonday.nowdistance+"km/h");
+                                        WritePostActivity.result_distance_view.setText(fragMonday.nowdistance+"km");
                                         WritePostActivity.result_kcal_view.setText(fragMonday.nowkcal+"kcal");
                                         WritePostActivity.result_time_view.setText(result_time);
                                     }

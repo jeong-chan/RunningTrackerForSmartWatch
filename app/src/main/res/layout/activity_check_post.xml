@@ -17,17 +17,22 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_marginTop="15dp">
+
     <TextView
         android:id="@+id/Check_spinner_city"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="City" />
 
     <TextView
         android:id="@+id/Check_spinner_sigungu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Sigungu" />
 
 </LinearLayout>
 
@@ -42,7 +47,7 @@
         android:padding="10dp" />
 
     <TextView
-        android:id="@+id/Check_TextPersonName"
+        android:id="@+id/Check_Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -95,7 +100,7 @@
          </LinearLayout>
 
         <TextView
-            android:id="@+id/Check_TextTextMultiLine"
+            android:id="@+id/Check_Comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"

@@ -1,33 +1,30 @@
 package com.example.registerloginexample;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
 
 public class CustomAdpter extends RecyclerView.Adapter<CustomAdpter.CustomViewAdpter> {
 
-    private ArrayList<Track> arrayList;
-    private LayoutInflater mInflate;
+    public static String idfordatabase;
+    public static ArrayList<Track> arrayList;
+    //private LayoutInflater mInflate;
     private Context context;
+    public static CustomViewAdpter every_holder;
 
     public CustomAdpter(ArrayList<Track> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
-        this.mInflate = LayoutInflater.from(context);
+        //this.mInflate = LayoutInflater.from(context);
     }
 
     @NonNull
@@ -35,13 +32,15 @@ public class CustomAdpter extends RecyclerView.Adapter<CustomAdpter.CustomViewAd
     public CustomViewAdpter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         CustomViewAdpter holder = new CustomViewAdpter(view);
+        every_holder = holder;
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, WritePostActivity.class);
+                Intent intent = new Intent(context, CheckPostActivity.class);
                 context.startActivity(intent);
                 Toast.makeText(v.getContext(), holder.tv_id.getText() ,Toast.LENGTH_SHORT).show();
+                idfordatabase = holder.tv_id.getText().toString();
             }
         });
         return holder;
@@ -49,13 +48,11 @@ public class CustomAdpter extends RecyclerView.Adapter<CustomAdpter.CustomViewAd
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewAdpter holder, int position) {
-        Glide.with(holder.itemView)
-                .load(arrayList.get(position).getProfile())
-                .into(holder.iv_profile);
+        holder.tv_Sigungu.setText(arrayList.get(position).getSigungu());
         holder.tv_id.setText(arrayList.get(position).getId());
-        holder.tv_pw.setText(arrayList.get(position).getPw());
-        holder.tv_userName.setText(arrayList.get(position).getUserName());
-
+        holder.tv_City.setText(arrayList.get(position).getCity());
+        holder.tv_Title.setText(arrayList.get(position).getTitle());
+        holder.tv_Runningplace.setText(arrayList.get(position).getRunningplace());
 
     }
 
@@ -68,19 +65,24 @@ public class CustomAdpter extends RecyclerView.Adapter<CustomAdpter.CustomViewAd
     }
 
     public  class CustomViewAdpter extends RecyclerView.ViewHolder {
-        public ArrayList arrayList;
-        ImageView iv_profile;
+        //public ArrayList arrayList;
+        TextView tv_Runningplace;
+        TextView tv_Sigungu;
         TextView tv_id;
-        TextView tv_pw;
-        TextView tv_userName;
+        TextView tv_City;
+        TextView tv_Title;
 
         public CustomViewAdpter(@NonNull View itemView) {
             super(itemView);
-            this.iv_profile = itemView.findViewById(R.id.iv_profile);
+            this.tv_Sigungu = itemView.findViewById(R.id.tv_Sigungu);
             this.tv_id = itemView.findViewById(R.id.tv_id);
-            this.tv_pw = itemView.findViewById(R.id.tv_pw);
-            this.tv_userName = itemView.findViewById(R.id.tv_userName);
+            this.tv_City = itemView.findViewById(R.id.tv_City);
+            this.tv_Title = itemView.findViewById(R.id.tv_Title);
+            this.tv_Runningplace = itemView.findViewById(R.id.tv_Runningplace);
 
+        }
+        public TextView getTvid(){
+            return tv_id;
         }
     }
 }

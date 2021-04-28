@@ -1,27 +1,37 @@
 package com.example.registerloginexample;
 
 public class Track {
-    private String profile;
+    private String Sigungu;
+    private String City;
     private String id;
-    private int pw;
-    private String userName;
+    private String Title;
+    private String RunningPlace;
 
-
-    public Track(){}
-
-    public Track(String profile, String id, int pw, String userName){
-            this.userName = userName;
-            this.pw = pw;
-            this.id = id;
-            this.profile = profile;
+    public String getRunningplace() {
+        return RunningPlace;
     }
 
-    public String getProfile() {
-        return profile;
+    public void setRunningplace(String runningplace) {
+        RunningPlace = runningplace;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public Track() {
+    }
+
+    public Track(String sigungu, String id, String City, String Title, String runningplace) {
+        this.City = City;
+        this.Title = Title;
+        this.id = id;
+        this.Sigungu = sigungu;
+        this.RunningPlace = runningplace;
+    }
+
+    public String getSigungu() {
+        return Sigungu;
+    }
+
+    public void setSigungu(String sigungu) {
+        Sigungu = sigungu;
     }
 
     public String getId() {
@@ -32,20 +42,19 @@ public class Track {
         this.id = id;
     }
 
-    public String getPw() {
-        String passw = String.valueOf(pw);
-        return passw;
+    public String getCity() {
+        return City;
     }
 
-    public void setPw(int pw) {
-        this.pw = pw;
+    public void setCity(String city) {
+        City = city;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getTitle() {
+        return Title;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setTitle(String title) {
+        Title = title;
     }
 }

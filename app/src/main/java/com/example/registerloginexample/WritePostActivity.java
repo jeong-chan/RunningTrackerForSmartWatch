@@ -447,22 +447,21 @@ public class WritePostActivity extends MainActivity {
     }
 
     public void data_create_and_delete(){
-        databaseRef.child(LoginActivity.user_db.getMember_id());
+        databaseRef.child("Track").child(LoginActivity.user_db.getMember_id()).child("id").setValue(LoginActivity.user_db.getMember_id());
 
-        databaseRef.child(LoginActivity.user_db.getMember_id()).child("status").child("Distance").setValue(result_distance_view.getText());
-        databaseRef.child(LoginActivity.user_db.getMember_id()).child("status").child("Time").setValue(result_time_view.getText());
-        databaseRef.child(LoginActivity.user_db.getMember_id()).child("status").child("Kcal").setValue(result_kcal_view.getText());
+        databaseRef.child("Track").child(LoginActivity.user_db.getMember_id()).child("status").child("Distance").setValue(result_distance_view.getText());
+        databaseRef.child("Track").child(LoginActivity.user_db.getMember_id()).child("status").child("Time").setValue(result_time_view.getText());
+        databaseRef.child("Track").child(LoginActivity.user_db.getMember_id()).child("status").child("Kcal").setValue(result_kcal_view.getText());
 
-        databaseRef.child(LoginActivity.user_db.getMember_id()).child("Title").setValue(Title_view.getText().toString());
-        databaseRef.child(LoginActivity.user_db.getMember_id()).child("Comment").setValue(Comment_view.getText().toString());
-        databaseRef.child(LoginActivity.user_db.getMember_id()).child("RunningPlace").setValue(RunningPlace_view.getText().toString());
+        databaseRef.child("Track").child(LoginActivity.user_db.getMember_id()).child("Title").setValue(Title_view.getText().toString());
+        databaseRef.child("Track").child(LoginActivity.user_db.getMember_id()).child("Comment").setValue(Comment_view.getText().toString());
+        databaseRef.child("Track").child(LoginActivity.user_db.getMember_id()).child("RunningPlace").setValue(RunningPlace_view.getText().toString());
 
-        databaseRef.child(LoginActivity.user_db.getMember_id()).child("City/Sigungu").child("City").setValue(choice_city);
-        databaseRef.child(LoginActivity.user_db.getMember_id()).child("City/Sigungu").child("Sigungu").setValue(choice_sigungu);
+        databaseRef.child("Track").child(LoginActivity.user_db.getMember_id()).child("City").setValue(choice_city);
+        databaseRef.child("Track").child(LoginActivity.user_db.getMember_id()).child("Sigungu").setValue(choice_sigungu);
 
-        databaseRef.child(LoginActivity.user_db.getMember_id()).child("LatLng").setValue(MainActivity.login_latlng.toString());
-
-    }
+        databaseRef.child("Track").child(LoginActivity.user_db.getMember_id()).child("LatLng").setValue(MainActivity.login_latlng.toString());
+        }
 
 
 }
