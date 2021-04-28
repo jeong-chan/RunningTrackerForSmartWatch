@@ -1,6 +1,7 @@
 package com.example.registerloginexample;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,11 +33,12 @@ public class CheckPostActivity extends MainActivity {
     public static FirebaseStorage mFireStorage;
     public static StorageReference storageRef;
     public static TextView check_result_distance_view, check_result_time_view,check_runningplace, check_result_kcal_view, check_spinner_city, check_spinner_sigungu, check_City, check_Sigungu, check_Title, check_comment;
+    public static Button btn_back_button, btn_share_button;
     public static FirebaseDatabase database;
     public static DatabaseReference databaseRef;
     public CustomAdpter cstadpter;
 
-    @SuppressLint("WrongViewCast")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +54,10 @@ public class CheckPostActivity extends MainActivity {
         check_result_time_view = (TextView) findViewById(R.id.Check_post_time);
         check_result_kcal_view = (TextView) findViewById(R.id.Check_post_kcal);
         check_result_distance_view = (TextView) findViewById(R.id.Check_post_distance);
-        check_spinner_city = (TextView) findViewById(R.id.spinner_city);
-        check_spinner_sigungu = (TextView) findViewById(R.id.spinner_sigungu);
+        check_spinner_city = (TextView) findViewById(R.id.Check_spinner_city);
+        check_spinner_sigungu = (TextView) findViewById(R.id.Check_spinner_sigungu);
+        btn_back_button = (Button)findViewById(R.id.Check_cancel_button);
+        btn_share_button = (Button)findViewById(R.id.Check_share_button);
 
         storageRef.child(cstadpter.idfordatabase+"_map_images").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -93,6 +98,15 @@ public class CheckPostActivity extends MainActivity {
 
             }
         });
+
+        btn_back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(CheckPostActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

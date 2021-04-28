@@ -40,26 +40,10 @@ public class FragTuesday extends Fragment{
         return fragTuesday;
     }
 
-    private void initData(){
 
-        arrayList.clear();
-/*
-        arrayList.add(new Track("R.drawable.pass_currect","check","d","체크"));
-        arrayList.add(new Track("R.drawable.pass_right","check2","d","엑스1"));
-        arrayList.add(new Track("R.drawable.pass_right","check3","d","엑스2"));
-        arrayList.add(new Track("R.drawable.pass_right","check4","d","엑스3"));
-        arrayList.add(new Track("R.drawable.pass_right","check5","d","엑스4"));
-        arrayList.add(new Track("R.drawable.pass_right","check6","d","엑스5"));
-        arrayList.add(new Track("R.drawable.pass_right","check7","d","엑스6"));
-*/
-
-
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.frag_tuesday, container, false);
-
-       // initData();
 
 
             Context context = rootView.getContext();
@@ -74,7 +58,7 @@ public class FragTuesday extends Fragment{
             database = FirebaseDatabase.getInstance();
             databaseRef = database.getReference("Track");
 
-            databaseRef.addListenerForSingleValueEvent(  new ValueEventListener() {
+            databaseRef.addValueEventListener(  new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     arrayList.clear();

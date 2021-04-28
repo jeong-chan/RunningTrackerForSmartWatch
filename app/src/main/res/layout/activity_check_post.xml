@@ -119,6 +119,13 @@
         android:layout_marginBottom="15dp"
         android:padding="5dp">
         <Button
+            android:id="@+id/Check_share_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:text="공유하기" />
+        <Button
             android:id="@+id/Check_cancel_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

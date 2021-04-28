@@ -1,5 +1,6 @@
 package com.example.registerloginexample;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -379,12 +380,17 @@ public class WritePostActivity extends MainActivity {
                     data_create_and_delete();
                     break;
                 case R.id.cancel_button:
-                    finish();
+                    final Intent intent = new Intent(WritePostActivity.this, MainActivity.class);
+                    startActivity(intent);
                     break;
             }
         }
     };
-
+    @Override
+    public void onPause(){
+        super.onPause();
+        finish();
+    }
     public void initFirestore(){
         mFireStorage = FirebaseStorage.getInstance();
         storageRef = mFireStorage.getReference();
