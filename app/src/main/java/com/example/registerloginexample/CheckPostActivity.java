@@ -3,6 +3,7 @@ package com.example.registerloginexample;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,6 +54,20 @@ public class CheckPostActivity extends MainActivity {
         check_spinner_city = (TextView) findViewById(R.id.spinner_city);
         check_spinner_sigungu = (TextView) findViewById(R.id.spinner_sigungu);
 
+        storageRef.child(cstadpter.idfordatabase+"_map_images").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(getApplicationContext())
+                        .load(uri)
+                        .into(posted_imageView);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
         databaseRef.child("Track").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -75,13 +93,11 @@ public class CheckPostActivity extends MainActivity {
 
             }
         });
-        //check_result_time_view.setText(databaseRef.child("Track").child(cstadpter.idfordatabase).child("status").child("Time").toString());
-        //check_result_time_view = databaseRef.child()
 
     }
 
     public void initFirestore() {
-        mFireStorage = FirebaseStorage.getInstance();
+        mFireStorage = FirebaseStorage.getInstance("gs://runtracker-df7a8.appspot.com/");
         storageRef = mFireStorage.getReference();
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference();
