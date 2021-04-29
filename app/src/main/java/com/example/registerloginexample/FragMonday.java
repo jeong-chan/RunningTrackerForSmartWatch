@@ -38,6 +38,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -67,7 +68,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     private Location mCurrentLocation;
     private Location location;
     private LocationManager locationmanager;
-    private final LatLng mDefaultLocation = new LatLng(37.56, 126.97);
+    private final LatLng mDefaultLocation = new LatLng(35.24160126808495, 128.69574364205644);
     private static final int DEFAULT_ZOOM=15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
@@ -85,7 +86,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     private double distance = 0.0;
     private double kcal = 0.0;
     private double timeforkcal = -1;
-    private  String slatitude, slongitude ;
+    public static String slatitude, slongitude ;
     double delay;
 
     public FragMonday(){
@@ -230,12 +231,36 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
         setDefaultLocation();
         getLocationPermission();
         updateLocationUI();
         getDeviceLocation();
+        drawsharedpolyline();
     }
 
+
+    private void drawsharedpolyline(){
+        if(CheckPostActivity.getsharedlatlng() == 1){
+            PolylineOptions rectOptions = new PolylineOptions();
+            rectOptions.color(Color.RED);
+            for(int j=0;j<CheckPostActivity.shared_latlng.size();j++) {
+                rectOptions.add(CheckPostActivity.shared_latlng.get(j));
+            }
+
+            Polyline polyline = mMap.addPolyline(rectOptions);
+
+            LatLngBounds.Builder FitZoom = new LatLngBounds.Builder();
+            for(int j=0;j<CheckPostActivity.shared_latlng.size();j++) {
+                FitZoom.include(CheckPostActivity.shared_latlng.get(j));
+            }
+            LatLngBounds FitZoomBound = FitZoom.build();
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(FitZoomBound, 50);
+            mMap.moveCamera(cu);
+        }
+
+        CheckPostActivity.shared_latlng = new ArrayList<>();
+    }
     //내 위치 레이어 및 관련 컨트롤 생성
     private void updateLocationUI(){
         if(mMap == null){
@@ -430,9 +455,11 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
         markerOptions.draggable(true);
 
         currentMarker = mMap.addMarker(markerOptions);
+        if(MainActivity.getIsRunning() == true) {
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
+            mMap.moveCamera(cameraUpdate);
+        }
 
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
-        mMap.moveCamera(cameraUpdate);
     }
 
     private void getDeviceLocation() {

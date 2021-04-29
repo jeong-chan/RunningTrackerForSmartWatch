@@ -13,8 +13,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,6 +28,7 @@ public class FragWendnesday extends Fragment {
     private int i=0;
     private EditText et_start,et_end;
     Calendar myCalendar = Calendar.getInstance();
+
 
 
     public static FragWendnesday newInstance() {

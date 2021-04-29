@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 public class CheckPostActivity extends MainActivity {
 
@@ -37,6 +41,8 @@ public class CheckPostActivity extends MainActivity {
     public static FirebaseDatabase database;
     public static DatabaseReference databaseRef;
     public CustomAdpter cstadpter;
+    public static ArrayList<LatLng> shared_latlng = new ArrayList<>();
+    public static int shared_finish = 0;
 
 
     @Override
@@ -94,6 +100,15 @@ public class CheckPostActivity extends MainActivity {
                 check_Title.setText(title);
                 String comment = String.valueOf(snapshot.child(cstadpter.idfordatabase).child("Comment").getValue());
                 check_comment.setText(comment);
+                String from_latlng = String.valueOf(snapshot.child(cstadpter.idfordatabase).child("LatLng").getValue());;
+                String[] save_from_latlng = from_latlng.replace("[","").replace("]","").replace("lat/lng:","").replace("(","").replace(")","").split(",");
+                for(int i=0;i<save_from_latlng.length-1;i++){
+                double latitude =Double.parseDouble(save_from_latlng[i]);
+                double longitude = Double.parseDouble(save_from_latlng[i+1]);
+                LatLng location = new LatLng(latitude,longitude);
+
+                shared_latlng.add(location);
+                i++;}
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -109,8 +124,21 @@ public class CheckPostActivity extends MainActivity {
                 startActivity(intent);
             }
         });
+        //공유 버튼 클릭시 동작
+        btn_share_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(CheckPostActivity.this, MainActivity.class);
+                startActivity(intent);
+                shared_finish = 1;
+            }
+        });
 
 
+    }
+
+    public static int getsharedlatlng(){
+        return shared_finish;
     }
 
     //firebase & storage 참조

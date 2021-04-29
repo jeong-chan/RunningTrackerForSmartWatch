@@ -27,8 +27,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.tabs.TabLayout;
@@ -171,18 +174,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         WritePostActivity.result_time_view.setText(result_time);
                                     }
                                 };
+
                                 snapmap = fragMonday.getmMap();
 
                                 PolylineOptions rectOptions = new PolylineOptions();
+                                LatLngBounds.Builder FitZoom = new LatLngBounds.Builder();
                                 for(int j=0;j<login_latlng.size();j++) {
                                     rectOptions.add(login_latlng.get(j));
+                                    FitZoom.include(login_latlng.get(j));
                                 }
 
                                 Polyline polyline = snapmap.addPolyline(rectOptions);
-                                //줌설정까지하면 완벽
-                                //그리고 파일화? 하고 디비랑 연동해서 게시판에 등록하고
-                                //게시판 이미지뷰에 클릭 이벤트 넣어서 MainActiviy에 똑같은 라인 그려지도록 저장
-                                //그러려면 리스트 하나를 이미지랑 같이 저장해둬야함
+                                LatLngBounds FitZoomBound = FitZoom.build();
+                                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(FitZoomBound, 50);
+                                snapmap.moveCamera(cu);
                                 snapmap.snapshot(callback);
 
                                 Intent intent = new Intent(MainActivity.this, WritePostActivity.class);
@@ -355,19 +360,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // 선택한 기간의 데이터를 다 더해주기
             if (istart == iend) {
                 for(;istart<size;istart++){
-<<<<<<< HEAD
+
                     if(LoginActivity.run_db.getRun_date().get(istart).equals(LoginActivity.run_db.getRun_date().get(iend))) {
                         rTime += Integer.parseInt(LoginActivity.run_db.getRun_time().get(istart));
                         rDis += Double.parseDouble(LoginActivity.run_db.getRun_distance().get(istart));
                         rKcal += Double.parseDouble(LoginActivity.run_db.getRun_kcal().get(istart));
                     }
-=======
+
                 if(LoginActivity.run_db.getRun_date().get(istart).equals(LoginActivity.run_db.getRun_date().get(iend))) {
                     rTime += Integer.parseInt(LoginActivity.run_db.getRun_time().get(istart));
                     rDis += Double.parseDouble(LoginActivity.run_db.getRun_distance().get(istart));
                     rKcal += Double.parseDouble(LoginActivity.run_db.getRun_kcal().get(istart));
                 }
->>>>>>> 6dad93201696c5752d29068992f5e9fed10c1c29
+
                 }
             } else {
                 for (; istart < iend; istart++) {
