@@ -41,6 +41,7 @@ public class FragTuesday extends Fragment{
     }
 
 
+    //RecycleView 생성(게시판 형태)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.frag_tuesday, container, false);
@@ -58,8 +59,10 @@ public class FragTuesday extends Fragment{
             database = FirebaseDatabase.getInstance();
             databaseRef = database.getReference("Track");
 
+            //fierbase데이터 참조 후, 값 변화시 갱신
             databaseRef.addValueEventListener(  new ValueEventListener() {
                 @Override
+
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     arrayList.clear();
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()){
@@ -69,6 +72,7 @@ public class FragTuesday extends Fragment{
                     adapter.notifyDataSetChanged();
                 }
 
+                //에러발생 시, 동작
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Log.e("fragment1", String.valueOf(databaseError.toException()));//에러문 출력

@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,6 +47,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, FragMonday.OnTimePickerSetListener {
     private Button mStartBtn, mStopBtn, mPauseBtn;
     public static TextView mTimeTextView,mSpeedTextView,mDistanceView,mKcalView;
+    private TextView runtime, runDis, runkcal;
     public static int mSec,Sec,min,hour;
     private Thread timeThread = null;
     private static Boolean isRunning = false;
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<String> login_latitude = new ArrayList<String>();
     private ArrayList<String> login_longitude = new ArrayList<String>();
     public static ArrayList<LatLng> login_latlng = new ArrayList<>();
+    private ArrayList<String> dates = new ArrayList<>();
     //private String mJsonString;
     private String location_ID = LoginActivity.user_db.getMember_id();// 현재 로그인한 사용자의 ID
     private Date date = new Date();
@@ -136,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 isRunning = false;
                 login_latlng.clear();
                 for (int i= 0; i<login_longitude.size(); i++) {
-                  login_latlng.add(new LatLng(Double.parseDouble(login_latitude.get(i)), Double.parseDouble(login_longitude.get(i))));
+                    login_latlng.add(new LatLng(Double.parseDouble(login_latitude.get(i)), Double.parseDouble(login_longitude.get(i))));
                 }
                 saveRunData();
                 v.setVisibility(View.GONE);
@@ -170,9 +174,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 snapmap = fragMonday.getmMap();
 
                                 PolylineOptions rectOptions = new PolylineOptions();
-                                        for(int j=0;j<login_latlng.size();j++) {
-                                            rectOptions.add(login_latlng.get(j));
-                                        }
+                                for(int j=0;j<login_latlng.size();j++) {
+                                    rectOptions.add(login_latlng.get(j));
+                                }
 
                                 Polyline polyline = snapmap.addPolyline(rectOptions);
                                 //줌설정까지하면 완벽
@@ -240,6 +244,152 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         login_longitude.add(longitude);
         saveLocation();
     }
+
+
+    // 통계에서 달력에서 날짜 선택
+    public void processDatePickerResult(String dateMessage) {
+        EditText et_start,et_end;
+
+        // 선택한 날짜 화면에 띄우기
+        dates.add(dateMessage);
+        System.out.println(dates.size());
+        if(dates.size()==1) {
+            et_start = findViewById(R.id.start_date);
+            et_start.setText("시작일:  "+dateMessage);
+        }else{
+            et_end =findViewById(R.id.end_date);
+            et_end.setText("종료일:  "+dateMessage);
+        }
+        if(dates.size()>1){
+            //System.out.println(dates);
+            statistic(dates);
+            dates.clear();
+        }
+
+        Toast.makeText(this, "Date: " + dateMessage, Toast.LENGTH_SHORT).show();
+
+    }
+    // 선택한 날짜에 맞는 데이터값 통계내서 보여주기
+    public void statistic(ArrayList<String> dates) {
+        int rTime = 0,compare1, compare2;
+        double rDis = 0.0, rKcal = 0.0;
+        int sta_mSec, sta_Sec, sta_min, sta_hour;
+        int istart = 0, iend=0, size;
+        Date start_Day=null, end_Day=null;
+        Date dbDay=null;
+        size = LoginActivity.run_db.getRun_date().size();
+        runtime = findViewById(R.id.timedata);
+        runDis = findViewById(R.id.disdata);
+        runkcal = findViewById(R.id.kcaldata);
+        //System.out.println("디비 데이터 양"+size);
+
+        String start = dates.get(0);
+        String end = dates.get(1);
+        // System.out.println("시작 "+start+"끝  "+end);
+
+        //데이터베이스에 등록된 날짜만 데이터값 나올수 있게 설정
+        try {
+            end_Day =datetime.parse(end);
+            start_Day = datetime.parse(start);
+            // System.out.println(end_Day +"와  "+start_Day);
+            for(int k=0;k<size;k++){
+                if(LoginActivity.run_db.getRun_date().get(k)!= "null") {
+                    dbDay = datetime.parse(LoginActivity.run_db.getRun_date().get(k));
+                    // System.out.println("데이터베이스에서 가장 빠른 시간: "+dbDay);
+                    compare1 = start_Day.compareTo(dbDay);
+                    compare2 = end_Day.compareTo(dbDay);
+                    if(compare1<0 && compare2<0 ) {
+                        istart = -1;
+                        Toast.makeText(this, "기간을 잘못 선택하셨습니다. ", Toast.LENGTH_SHORT).show();
+                        runtime.setText(null);
+                        runDis.setText(null);
+                        runkcal.setText(null);
+
+                        break;
+                    } else if(compare1>0)
+                    {
+                        //System.out.println("계속");
+                        continue;
+
+                    } else{
+                        start= datetime.format(dbDay);
+                        //System.out.println("제대로 시작:  "+start);
+                        break;
+                    }
+
+                }
+            }
+            for(int k=size-1; k>-1;k--){
+                dbDay=datetime.parse(LoginActivity.run_db.getRun_date().get(k));
+                compare2= end_Day.compareTo(dbDay);
+                if(compare2<0){
+                    continue;
+                }else{
+                    end=datetime.format(dbDay);
+
+                    break;
+                }
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        /// 선택한 날짜의 인덱스 찾기
+        for (int j = 0; j < size; j++) {
+            if (start.equals(LoginActivity.run_db.getRun_date().get(j))) {
+                istart = j;
+                System.out.println("인덱스 처음" + istart);
+                break;
+            }
+        }
+        for (int j = 0; j < size; j++) {
+            if (end.equals(LoginActivity.run_db.getRun_date().get(j))) {
+                iend = j;
+                System.out.println("인덱스 끝"+iend);
+                break;
+            }
+        }
+        if(istart>=0) {
+            // 선택한 기간의 데이터를 다 더해주기
+            if (istart == iend) {
+                for(;istart<size;istart++){
+                    if(LoginActivity.run_db.getRun_date().get(istart).equals(LoginActivity.run_db.getRun_date().get(iend))) {
+                        rTime += Integer.parseInt(LoginActivity.run_db.getRun_time().get(istart));
+                        rDis += Double.parseDouble(LoginActivity.run_db.getRun_distance().get(istart));
+                        rKcal += Double.parseDouble(LoginActivity.run_db.getRun_kcal().get(istart));
+                    }
+                }
+            } else {
+                for (; istart < iend; istart++) {
+                    rTime += Integer.parseInt(LoginActivity.run_db.getRun_time().get(istart));
+                    rDis += Double.parseDouble(LoginActivity.run_db.getRun_distance().get(istart));
+                    rKcal += Double.parseDouble(LoginActivity.run_db.getRun_kcal().get(istart));
+
+                    //System.out.println("결과는 " + rTime + "  " + rDis + "  " + rKcal);
+                }
+            }
+
+            sta_mSec = rTime % 100;
+            sta_Sec = (rTime / 100) % 60;
+            sta_min = (rTime / 100) / 60;
+            sta_hour = (rTime / 100) / 3600;
+
+            rDis = Double.parseDouble(String.format("%.3f", rDis));
+            rKcal = Double.parseDouble(String.format("%.3f", rKcal));
+
+            @SuppressLint("DefaultLocale") String result = String.format("%02d:%02d:%02d:%02d", sta_hour, sta_min, sta_Sec, sta_mSec);
+
+
+            runtime.setText(result);
+            runDis.setText(Double.toString(rDis) + " km");
+            runkcal.setText(Double.toString(rKcal) + " kcal");
+        }
+
+
+    }
+
 
     //초시계 동작
     public class timeThread implements Runnable{

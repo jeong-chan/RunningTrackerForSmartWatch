@@ -21,6 +21,7 @@ public class CustomAdpter extends RecyclerView.Adapter<CustomAdpter.CustomViewAd
     private Context context;
     public static CustomViewAdpter every_holder;
 
+
     public CustomAdpter(ArrayList<Track> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
@@ -34,6 +35,7 @@ public class CustomAdpter extends RecyclerView.Adapter<CustomAdpter.CustomViewAd
         CustomViewAdpter holder = new CustomViewAdpter(view);
         every_holder = holder;
 
+        //홀더에 종속된 각 항목 클릭시 동작
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +48,7 @@ public class CustomAdpter extends RecyclerView.Adapter<CustomAdpter.CustomViewAd
         return holder;
     }
 
+    //홀더에 값 바인딩
     @Override
     public void onBindViewHolder(@NonNull CustomViewAdpter holder, int position) {
         holder.tv_Sigungu.setText(arrayList.get(position).getSigungu());

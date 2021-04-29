@@ -90,6 +90,7 @@ public class WritePostActivity extends MainActivity {
         imageView1_test = imageView1_tests;
     }
 
+    //액티비티 생성시 동작
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,10 +116,12 @@ public class WritePostActivity extends MainActivity {
         } catch (Exception e){
         }
 
+        //스피너 생성
         adapter_city = ArrayAdapter.createFromResource(WritePostActivity.this, R.array.spinner_region,
                                                         android.R.layout.simple_spinner_dropdown_item);
         adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCity.setAdapter(adapter_city);
+        //Spinner 세팅
         spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
@@ -370,6 +373,7 @@ public class WritePostActivity extends MainActivity {
         });
     }
 
+    //확인 및 취소버튼 동작
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -391,6 +395,8 @@ public class WritePostActivity extends MainActivity {
         super.onPause();
         finish();
     }
+
+    //Firebase 참조
     public void initFirestore(){
         mFireStorage = FirebaseStorage.getInstance();
         storageRef = mFireStorage.getReference();
@@ -398,6 +404,7 @@ public class WritePostActivity extends MainActivity {
         databaseRef = database.getReference();
     }
 
+    //비트맵을 이미지로 저장
     public File saveBitmapToJpeg(Bitmap bitmap){
         File tempFile = new File(getCacheDir(), imgName);
         try{
@@ -412,6 +419,7 @@ public class WritePostActivity extends MainActivity {
         return tempFile;
     }
 
+    //ImageView의 image를  Bitmap으로 전환
     public Bitmap getBitmapFromView(View view){
         Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -419,6 +427,7 @@ public class WritePostActivity extends MainActivity {
         return bitmap;
     }
 
+    //Firebase Storage에 이미지 파일을 업로드하고 같은 ID에서 재 생성 되었을 경우 기존의 이미지를 지우고 다시 생성
     public void create_and_Delete(StorageReference ref){
         Bitmap tmp_map = getBitmapFromView(imageView1_test);
         File tmp_file = saveBitmapToJpeg(tmp_map);
@@ -452,6 +461,7 @@ public class WritePostActivity extends MainActivity {
         });
     }
 
+    //Firebase database의 값을 생성하고 같은 ID에서 재 생성 되었을 경우 기존의 값을 지우고 다시 생성
     public void data_create_and_delete(){
         databaseRef.child("Track").child(LoginActivity.user_db.getMember_id()).child("id").setValue(LoginActivity.user_db.getMember_id());
 

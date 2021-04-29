@@ -113,6 +113,8 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
         mContext = (FragmentActivity) activity;
         super.onAttach(activity);
     }
+
+    //프래그먼트를 액티비티에 attach할 때 호출
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -134,6 +136,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
     }
 
+    //뷰 생성시 동작
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -339,6 +342,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
                 delay = (location.getTime() - timeforkcal)/60000;
                 //timeforkcal = (location.getTime() - mCurrentLocation.getTime())/60000;
 
+                //달리는 상태일 때 실행
                 if(MainActivity.getIsRunning() == true) {
                     getnowspeed();
                     getnowdistance();
@@ -360,6 +364,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
 
     };
 
+    //현재까지 누적 이동거리
     public void getnowdistance(){
         distance += mCurrentLocation.distanceTo(location); //mCurrnetLocation(최근위치)에서 location(현재위치)까지 이동거리
         DecimalFormat form = new DecimalFormat("#.##"); //소숫점 2번쨰 자리까지 출력
@@ -367,6 +372,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
         MainActivity.mDistanceView.setText(nowdistance+"km"); //MainActivity에 DistanceView에 이동거리 setText
     }
 
+    //현재 이동속도
     public void getnowspeed(){
         speed = location.getSpeed()*3.6; //getspeed()의 단위는 m/s이므로 3.6을 곱해서 km/h로 변환
         DecimalFormat form = new DecimalFormat("#.##"); //소숫점 2번쨰 자리까지 출력
@@ -374,6 +380,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
         MainActivity.mSpeedTextView.setText(nowspeed+"Km/h"); //MainActivity에 SpeedView에 이동속도 setText
     }
 
+    //현재까지 누적 Kcal
     public void getnowkcal(){
         double MET = 0; //운동강도에 따른 신진대사해당치
         if(speed<1){
@@ -398,6 +405,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
         MainActivity.mKcalView.setText(/*MET+"MET"+delay+"hour"+PersonalActivity.login_user_weight+"kg"+"\n"+*/nowkcal+"Kcal"); //MainActivity에 KcalView에 소모칼로리 setText
     }
 
+    //Polyline 생성
     public void drawPath(){
         PolylineOptions options = new PolylineOptions().add(startLatLng).add(endLatLng).width(15).color(Color.BLACK).geodesic(true); //PolyLine 속성(시작점부터 끝점까지)
         polylines.add(mMap.addPolyline(options)); //설정한 속성의 폴리라인 추가

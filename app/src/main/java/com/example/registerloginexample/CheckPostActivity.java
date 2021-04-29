@@ -59,13 +59,14 @@ public class CheckPostActivity extends MainActivity {
         btn_back_button = (Button)findViewById(R.id.Check_cancel_button);
         btn_share_button = (Button)findViewById(R.id.Check_share_button);
 
+        //firebasestorage에서 게시판 항목에 맞는 이미지 받아옴
         storageRef.child(cstadpter.idfordatabase+"_map_images").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(getApplicationContext())
                         .load(uri)
                         .into(posted_imageView);
-            }
+            }//이미지 받아오기 실패시 동작
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -73,6 +74,7 @@ public class CheckPostActivity extends MainActivity {
             }
         });
 
+        //firebase realtime database에서 게시판 항목에 맞는 값을 받아옴
         databaseRef.child("Track").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -99,6 +101,7 @@ public class CheckPostActivity extends MainActivity {
             }
         });
 
+        //뒤로가기 버튼 클릭시 동작
         btn_back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +113,7 @@ public class CheckPostActivity extends MainActivity {
 
     }
 
+    //firebase & storage 참조
     public void initFirestore() {
         mFireStorage = FirebaseStorage.getInstance("gs://runtracker-df7a8.appspot.com/");
         storageRef = mFireStorage.getReference();

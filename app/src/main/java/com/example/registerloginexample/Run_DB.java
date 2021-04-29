@@ -11,6 +11,8 @@ public class Run_DB {
     private ArrayList<String> run_kcal =new ArrayList<String>();
     private ArrayList<String> latitude =new ArrayList<String>();
     private ArrayList<String> longitude=new ArrayList<String>();
+    private ArrayList<String> run_date=new ArrayList<String>();
+    public ArrayList<String> getRun_date(){return run_date;};
 
     public ArrayList<String> getRun_distance(){
         return run_distance;
@@ -21,15 +23,15 @@ public class Run_DB {
     public ArrayList<String> getRun_kcal(){
         return run_kcal;
     }
+    /*
+        public ArrayList<String> get_latitude(){
+            return latitude;
+        }
 
-    public ArrayList<String> get_latitude(){
-        return latitude;
-    }
-
-    public ArrayList<String> get_longitude(){
-        return longitude;
-    }
-
+        public ArrayList<String> get_longitude(){
+            return longitude;
+        }
+    */
     public void setRun_distance (ArrayList<String> run_distance){
         this.run_distance.clear();
         this.run_distance = run_distance;
@@ -45,6 +47,11 @@ public class Run_DB {
         this.run_kcal = run_kcal;
     }
 
+    public void setRun_date (ArrayList<String> run_date){
+        this.run_date.clear();
+        this.run_date = run_date;
+    }
+/*
     //위도값 리스트 초기화후 다시 저장
     public void setLatitude (ArrayList<String> latitude){
         this.latitude.clear();
@@ -54,6 +61,6 @@ public class Run_DB {
     public void setLongitude (ArrayList<String> longitude){
         this.longitude.clear();
         this.longitude = longitude;
-    }
+    }*/
 }
 
