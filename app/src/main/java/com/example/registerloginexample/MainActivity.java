@@ -355,11 +355,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // 선택한 기간의 데이터를 다 더해주기
             if (istart == iend) {
                 for(;istart<size;istart++){
+<<<<<<< HEAD
                     if(LoginActivity.run_db.getRun_date().get(istart).equals(LoginActivity.run_db.getRun_date().get(iend))) {
                         rTime += Integer.parseInt(LoginActivity.run_db.getRun_time().get(istart));
                         rDis += Double.parseDouble(LoginActivity.run_db.getRun_distance().get(istart));
                         rKcal += Double.parseDouble(LoginActivity.run_db.getRun_kcal().get(istart));
                     }
+=======
+                if(LoginActivity.run_db.getRun_date().get(istart).equals(LoginActivity.run_db.getRun_date().get(iend))) {
+                    rTime += Integer.parseInt(LoginActivity.run_db.getRun_time().get(istart));
+                    rDis += Double.parseDouble(LoginActivity.run_db.getRun_distance().get(istart));
+                    rKcal += Double.parseDouble(LoginActivity.run_db.getRun_kcal().get(istart));
+                }
+>>>>>>> 6dad93201696c5752d29068992f5e9fed10c1c29
                 }
             } else {
                 for (; istart < iend; istart++) {

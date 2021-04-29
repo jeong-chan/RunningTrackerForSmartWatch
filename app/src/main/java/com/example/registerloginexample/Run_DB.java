@@ -23,6 +23,7 @@ public class Run_DB {
     public ArrayList<String> getRun_kcal(){
         return run_kcal;
     }
+<<<<<<< HEAD
     /*
         public ArrayList<String> get_latitude(){
             return latitude;
@@ -32,6 +33,17 @@ public class Run_DB {
             return longitude;
         }
     */
+=======
+/*
+    public ArrayList<String> get_latitude(){
+        return latitude;
+    }
+
+    public ArrayList<String> get_longitude(){
+        return longitude;
+    }
+*/
+>>>>>>> 6dad93201696c5752d29068992f5e9fed10c1c29
     public void setRun_distance (ArrayList<String> run_distance){
         this.run_distance.clear();
         this.run_distance = run_distance;
