@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private ArrayList<String> runTime =new ArrayList<>();
     private ArrayList<String> runKcal =new ArrayList<>();
     private ArrayList<String> runDis =new ArrayList<>();
+    private ArrayList<String> runDate =new ArrayList<>();
     public String ID_user;//PersonalActivity에서 접근할 변수
     private static String IP_ADDRESS = "cw20173068.dothome.co.kr";
     private static String TAG = "phpexample";
@@ -121,19 +122,25 @@ public class LoginActivity extends AppCompatActivity {
                         String runtime = jsonObject.getString("run_Time");
                         String rundis=jsonObject.getString("run_Distance");
                         String runkcal =jsonObject.getString("run_Kcal");
+                        String rundate = jsonObject.getString("run_Date");
+
+                        // System.out.println(rundate);
                         runTime.add(runtime);
                         runDis.add(rundis);
                         runKcal.add(runkcal);
+                        runDate.add(rundate);
 
 
-                        System.out.println(runTime);
+                        //System.out.println(runTime);
                     }
 
                     run_db.setRun_time(runTime);
                     run_db.setRun_distance(runDis);
                     run_db.setRun_kcal(runKcal);
+                    run_db.setRun_date(runDate);
 
-                    System.out.println("제발... DB에서 나왔니...?" + runTime+"  "+ runDis+"  "+runKcal);
+                    System.out.println("제발... DB에서 나왔니...?" + runTime+"  "+ runDis+"  "+runKcal+"  "+ runDate);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
