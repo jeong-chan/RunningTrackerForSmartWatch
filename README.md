@@ -24,6 +24,12 @@
 ##### * 스마트워치를 이용한 운동 경로 추적 및 저장 기능 <br><br>
 **6. 사용법** <br>
 --------------------------------------------
+Google API 키를 발급받고 AndoridManifest.xml에 삽입
+```
+<meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="발급받은_Gooogle_API_KEY" />
+```
 **7. 결과화면** <br>
 --------------------------------------------
 
