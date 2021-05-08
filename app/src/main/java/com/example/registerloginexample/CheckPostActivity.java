@@ -43,6 +43,7 @@ public class CheckPostActivity extends MainActivity {
     public CustomAdpter cstadpter;
     public static ArrayList<LatLng> shared_latlng = new ArrayList<>();
     public static int shared_finish = 0;
+    FragMonday fragMonday = new FragMonday();
 
 
     @Override
@@ -128,6 +129,7 @@ public class CheckPostActivity extends MainActivity {
         btn_share_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fragMonday.MapClear();
                 final Intent intent = new Intent(CheckPostActivity.this, MainActivity.class);
                 startActivity(intent);
                 shared_finish = 1;

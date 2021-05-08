@@ -88,6 +88,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     private double timeforkcal = -1;
     public static String slatitude, slongitude ;
     double delay;
+    public static Polyline sharedline;
 
     public FragMonday(){
     }
@@ -223,7 +224,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
 
     }
     //지도 초기화
-    public void MapClear(){
+    public static void MapClear(){
         mMap.clear();
     }
 
@@ -241,25 +242,27 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
 
 
     private void drawsharedpolyline(){
+
+        if(sharedline != null){
+            sharedline = null;
+        }
         if(CheckPostActivity.getsharedlatlng() == 1){
             PolylineOptions rectOptions = new PolylineOptions();
             rectOptions.color(Color.RED);
-            for(int j=0;j<CheckPostActivity.shared_latlng.size();j++) {
-                rectOptions.add(CheckPostActivity.shared_latlng.get(j));
-            }
-
-            Polyline polyline = mMap.addPolyline(rectOptions);
-
             LatLngBounds.Builder FitZoom = new LatLngBounds.Builder();
             for(int j=0;j<CheckPostActivity.shared_latlng.size();j++) {
+                rectOptions.add(CheckPostActivity.shared_latlng.get(j));
                 FitZoom.include(CheckPostActivity.shared_latlng.get(j));
             }
             LatLngBounds FitZoomBound = FitZoom.build();
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(FitZoomBound, 50);
+            sharedline = mMap.addPolyline(rectOptions);
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(FitZoomBound, 200);
             mMap.moveCamera(cu);
-        }
 
-        CheckPostActivity.shared_latlng = new ArrayList<>();
+            sharedline = null;
+
+        }
+        CheckPostActivity.shared_latlng.clear();
     }
     //내 위치 레이어 및 관련 컨트롤 생성
     private void updateLocationUI(){
@@ -372,7 +375,8 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
                     getnowspeed();
                     getnowdistance();
                     getnowkcal();
-                    drawPath();}
+                    drawPath();
+                    howtoshared(location,CheckPostActivity.shared_latlng);}
 
                 mCurrentLocation = location;
                 startLatLng = new LatLng(latitude,longitude);
@@ -388,6 +392,30 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
         }
 
     };
+
+    private void howtoshared(Location currentlocation, ArrayList<LatLng> sharedlocation){
+        Boolean remove_yes = false;
+        if(sharedline != null){
+            for(int i=0;i<sharedlocation.size();i++) {
+                Location shared = new Location(LocationManager.GPS_PROVIDER);
+                shared.setLatitude(sharedlocation.get(i).latitude);
+                shared.setLongitude(sharedlocation.get(i).longitude);
+                double distance = currentlocation.distanceTo(shared);
+                if(distance >= 300){
+                    remove_yes = true;
+                }else{remove_yes = false;}
+            }
+        } else if(sharedline == null){
+
+        }
+        if(remove_yes == true){
+            sharedline.remove();
+            sharedline = null;
+            Toast. makeText( mContext, "경로에서 벗어났습니다.", Toast.LENGTH_SHORT ).show();
+            remove_yes = false;
+        }
+
+    }
 
     //현재까지 누적 이동거리
     public void getnowdistance(){
@@ -434,7 +462,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     public void drawPath(){
         PolylineOptions options = new PolylineOptions().add(startLatLng).add(endLatLng).width(15).color(Color.BLACK).geodesic(true); //PolyLine 속성(시작점부터 끝점까지)
         polylines.add(mMap.addPolyline(options)); //설정한 속성의 폴리라인 추가
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLatLng,18)); //카메라설정
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLatLng,25)); //카메라설정
     }
 
     private String CurrentTime(){

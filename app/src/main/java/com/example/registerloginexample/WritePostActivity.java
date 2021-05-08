@@ -377,14 +377,16 @@ public class WritePostActivity extends MainActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            final Intent intent = new Intent(WritePostActivity.this, MainActivity.class);
             switch (v.getId()) {
                 case R.id.check_button:
                     create_and_Delete(storageRef);
                     //data_create_and_delete();
                     data_create_and_delete();
+                    startActivity(intent);
+                    CheckPostActivity.shared_finish = 0;
                     break;
                 case R.id.cancel_button:
-                    final Intent intent = new Intent(WritePostActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
             }
