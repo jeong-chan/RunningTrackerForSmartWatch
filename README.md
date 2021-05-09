@@ -1,4 +1,4 @@
-# RunningTracker
+# PROJECT
 쏘스 - 소셜 런 클럽(Social Run Club)<br><br>
 **1. 개발환경 및 사용언어**  <br> 
 ------------------------------------------
