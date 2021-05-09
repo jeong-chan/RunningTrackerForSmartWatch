@@ -5,6 +5,7 @@
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff8e1"
     >
     <LinearLayout
         android:id="@+id/basic"
@@ -16,40 +17,50 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_marginTop="15dp">
+    android:layout_marginTop="15dp"
+    >
     <Spinner
         android:id="@+id/spinner_city"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="@drawable/edge"
+        android:textSize="20dp"/>
 
     <Spinner
         android:id="@+id/spinner_sigungu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="@drawable/edge"
+        android:textSize="20dp"/>
 
 </LinearLayout>
 
-    <EditText
-        android:id="@+id/runnigplace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:hint="운동장소(출발지또는 목적지 입력가능)"
-        android:inputType="textPersonName"
-        android:padding="10dp" />
+        <EditText
+            android:id="@+id/runnigplace"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edge"
+            android:ems="10"
+            android:hint="운동장소(출발지또는 목적지 입력가능)"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textSize="16dp"/>
 
-    <EditText
-        android:id="@+id/edit_Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="제목"
-        android:inputType="textPersonName"
-        android:layout_marginTop="15dp"
-        android:padding="10dp" />
+        <EditText
+            android:id="@+id/edit_Title"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edge"
+            android:ems="10"
+            android:hint="제목"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textSize="16dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,28 +81,38 @@
              android:layout_width="match_parent"
              android:layout_height="50dp"
              android:orientation="horizontal"
-             android:layout_marginTop="15dp">
-         <TextView
-             android:id="@+id/post_distance"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:layout_weight="1"
-             android:hint="distance"
-             android:gravity="center" />
+             android:layout_marginTop="15dp"
+             >
+
+             <TextView
+                 android:id="@+id/post_distance"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_weight="1"
+                 android:gravity="center"
+                 android:hint="distance"
+                 android:visibility="visible"
+                 android:textSize="16dp"
+                 android:background="@drawable/edge"/>
          <TextView
              android:id="@+id/post_time"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:layout_weight="1"
              android:hint="time"
-             android:gravity="center" />
+             android:gravity="center"
+             android:textSize="16dp"
+             android:background="@drawable/edge"/>
          <TextView
              android:id="@+id/post_kcal"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:layout_weight="1"
              android:hint="kcal"
-             android:gravity="center" />
+             android:gravity="center"
+             android:textSize="16dp"
+             android:background="@drawable/edge"
+             />
          </LinearLayout>
 
         <EditText
@@ -105,7 +126,9 @@
             android:hint="내용"
             android:inputType="textMultiLine"
             android:lines="10"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:background="@drawable/edge"
+            android:textSize="16dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -114,19 +137,25 @@
         android:layout_marginBottom="15dp"
         android:padding="5dp">
         <Button
-        android:id="@+id/check_button"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+            android:id="@+id/check_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:layout_marginRight="2dp"
-        android:text="확인" />
+            android:text="확인"
+            android:textColor="#2B2A2A"
+            app:backgroundTint="#caae53"
+            android:textSize="16dp"/>
         <Button
             android:id="@+id/cancel_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="2dp"
             android:layout_weight="1"
-            android:text="취소" />
+            android:text="취소"
+            android:textColor="#2B2A2A"
+            app:backgroundTint="#caae53"
+            android:textSize="16dp"/>
     </LinearLayout>
 
 </LinearLayout>

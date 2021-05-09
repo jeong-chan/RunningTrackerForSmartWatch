@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffecb3"
+    >
 
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         android:id="@+id/sliding_layout"
@@ -62,8 +64,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:text="Start"
-                    android:background="@drawable/button"
-                    />
+                    android:textColor="#2B2A2A"
+                    android:textSize="18dp"
+                    app:backgroundTint="#caae53" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -74,49 +77,93 @@
                         android:id="@+id/btn_pause"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
-                        android:layout_weight="1"
                         android:layout_marginRight="3dp"
-                        android:background="@drawable/button"
+                        android:layout_weight="1"
                         android:text="pause"
-                        android:textColor="@color/black"
-                        android:visibility="invisible"/>
+                        android:textColor="#2B2A2A"
+                        android:textSize="18dp"
+                        android:visibility="invisible"
+                        app:backgroundTint="#caae53" />
 
                     <Button
                         android:id="@+id/btn_runStop"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
                         android:layout_weight="1"
-                        android:background="@drawable/button"
                         android:text="Stop"
-                        android:textColor="@color/black"
-                        android:visibility="invisible"/>
+                        android:textColor="#2B2A2A"
+                        app:backgroundTint="#caae53"
+                        android:visibility="invisible"
+                        android:textSize="18dp"/>
                 </LinearLayout>
 
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/speedView"
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="70dp"
+                    android:text="이동 속도"
+                    android:gravity="center"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:id="@+id/speedView"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:gravity="left"
+                    android:text="0.0km/h"
+                    android:textSize="25dp" />
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="210dp"
                 android:layout_height="70dp"
-                android:text="0.0km/h"
-                android:textSize="25dp"
-                />
+                android:text="총 이동거리"
+                android:gravity="center"
+                android:textSize="25dp" />
 
             <TextView
                 android:id="@+id/distanceView"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:gravity="left"
                 android:text="0.0km"
                 android:textSize="25dp"
                 />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="210dp"
+                android:layout_height="70dp"
+                android:text="총 소모된 칼로리"
+                android:gravity="center"
+                android:textSize="25dp" />
 
             <TextView
                 android:id="@+id/kcalView"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:gravity="left"
                 android:text="0.0kcal"
                 android:textSize="25dp"
                 />
+        </LinearLayout>
+
 
 
             <View
@@ -125,7 +172,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
-                android:background="@color/white">
+                android:background="#ffecb3">
 
             </View>
 
@@ -135,7 +182,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
-                android:text=""
                 android:textColor="@color/black"
                 android:textSize="22dp"/>
 
@@ -149,7 +195,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/tab_layout"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        android:fontFamily="@font/rixyeoljeongdoregular">
 
     </FrameLayout>
 
@@ -161,25 +208,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="NotSibling">
+        tools:ignore="NotSibling"
+        android:background="#fff8e1"
+
+        >
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_item1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="현재위치/달리기" />
+            android:text="현재위치/달리기"
+            android:textSize="18sp"
+
+            />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_item2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="경로공유" />
+            android:text="경로공유"
+            android:textSize="18dp"
+            />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_item3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="통계" />
+            android:text="통계"
+            android:textSize="18dp"/>
     </com.google.android.material.tabs.TabLayout>
 
 

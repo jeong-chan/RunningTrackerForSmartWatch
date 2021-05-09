@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#ffecb3">
 
 
     <EditText
@@ -21,7 +22,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toEndOf="@+id/start_date"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="16dp"
+        />
 
     <EditText
         android:id="@+id/start_date"
@@ -36,7 +39,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.112"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="16dp"/>
 
     <EditText
         android:id="@+id/timedata"
@@ -51,7 +55,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="16dp"/>
 
     <EditText
         android:id="@+id/disdata"
@@ -65,7 +70,8 @@
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="@+id/timedata"
         app:layout_constraintStart_toStartOf="@+id/timedata"
-        app:layout_constraintTop_toBottomOf="@+id/timedata" />
+        app:layout_constraintTop_toBottomOf="@+id/timedata"
+        android:textSize="16dp"/>
 
     <EditText
         android:id="@+id/kcaldata"
@@ -79,7 +85,8 @@
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="@+id/disdata"
         app:layout_constraintStart_toStartOf="@+id/disdata"
-        app:layout_constraintTop_toBottomOf="@+id/disdata" />
+        app:layout_constraintTop_toBottomOf="@+id/disdata"
+        android:textSize="16dp"/>
 
 
 

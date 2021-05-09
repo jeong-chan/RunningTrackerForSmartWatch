@@ -5,6 +5,7 @@
     android:id="@+id/Check_scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff8e1"
     >
     <LinearLayout
         android:id="@+id/Check_basic"
@@ -21,10 +22,12 @@
     <TextView
         android:id="@+id/Check_spinner_city"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="52dp"
         android:layout_weight="1"
+        android:background="@drawable/edge"
         android:gravity="center"
-        android:text="City" />
+        android:text="City"
+        android:textSize="16dp"/>
 
     <TextView
         android:id="@+id/Check_spinner_sigungu"
@@ -32,29 +35,36 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="Sigungu" />
+        android:text="Sigungu"
+        android:textSize="16dp"
+        android:background="@drawable/edge"/>
 
 </LinearLayout>
 
-    <TextView
-        android:id="@+id/Check_runnigplace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:hint="운동장소(출발지또는 목적지 입력가능)"
-        android:inputType="textPersonName"
-        android:padding="10dp" />
+        <TextView
+            android:id="@+id/Check_runnigplace"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edge"
+            android:ems="10"
+            android:hint="운동장소(출발지또는 목적지 입력가능)"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textSize="16dp"/>
 
-    <TextView
-        android:id="@+id/Check_Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="제목"
-        android:inputType="textPersonName"
-        android:layout_marginTop="15dp"
-        android:padding="10dp" />
+        <TextView
+            android:id="@+id/Check_Title"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edge"
+            android:ems="10"
+            android:hint="제목"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textSize="16dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,34 +79,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="fitCenter"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@tools:sample/avatars"
+                />
          </FrameLayout>
          <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="50dp"
              android:orientation="horizontal"
-             android:layout_marginTop="15dp">
+             android:layout_marginTop="15dp"
+             android:background="@drawable/edge">
          <TextView
              android:id="@+id/Check_post_distance"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:layout_weight="1"
              android:hint="distance"
-             android:gravity="center" />
+             android:gravity="center"
+             android:textSize="16dp"/>
          <TextView
              android:id="@+id/Check_post_time"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:layout_weight="1"
              android:hint="time"
-             android:gravity="center" />
+             android:gravity="center"
+             android:textSize="16dp"/>
          <TextView
              android:id="@+id/Check_post_kcal"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:layout_weight="1"
              android:hint="kcal"
-             android:gravity="center" />
+             android:gravity="center"
+             android:textSize="16dp"/>
          </LinearLayout>
 
         <TextView
@@ -110,7 +125,9 @@
             android:hint="내용"
             android:inputType="textMultiLine"
             android:lines="10"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:background="@drawable/edge"
+            android:textSize="16dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -124,14 +141,20 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="2dp"
             android:layout_weight="1"
-            android:text="공유하기" />
+            android:text="공유하기"
+            android:textColor="#2B2A2A"
+            app:backgroundTint="#caae53"
+            android:textSize="16dp"/>
         <Button
             android:id="@+id/Check_cancel_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="2dp"
             android:layout_weight="1"
-            android:text="뒤로가기" />
+            android:text="뒤로가기"
+            android:textColor="#2B2A2A"
+            app:backgroundTint="#caae53"
+            android:textSize="16dp"/>
     </LinearLayout>
 
 </LinearLayout>

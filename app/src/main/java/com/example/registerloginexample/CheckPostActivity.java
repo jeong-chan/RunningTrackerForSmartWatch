@@ -51,6 +51,7 @@ public class CheckPostActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_post);
         initFirestore();
+        shared_latlng.clear();
 
         posted_imageView = (ImageView) findViewById(R.id.Check_imageView);
         check_City = (TextView) findViewById(R.id.Check_spinner_city);
@@ -129,7 +130,8 @@ public class CheckPostActivity extends MainActivity {
         btn_share_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragMonday.MapClear();
+
+
                 final Intent intent = new Intent(CheckPostActivity.this, MainActivity.class);
                 startActivity(intent);
                 shared_finish = 1;

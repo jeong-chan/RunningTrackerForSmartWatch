@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+
+    <string name="app_name">Running Tracker </string>
+
+
     <string-array name="spinner_region">
         <item>(도/시를 선택해주세요)</item>
         <item>서울특별시</item>

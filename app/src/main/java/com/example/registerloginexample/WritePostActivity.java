@@ -40,7 +40,7 @@ public class WritePostActivity extends MainActivity {
 
     public static ImageView imageView1_test;
     public static TextView result_distance_view, result_time_view, result_kcal_view;
-    public static EditText Title_view, RunningPlace_view, Comment_view;
+    public static EditText Title_view, RunningPlace_view, Comment_view = null;
     private String imgName = "osz.png";
     public static FirebaseStorage mFireStorage;
     public static StorageReference storageRef;
@@ -377,20 +377,27 @@ public class WritePostActivity extends MainActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Boolean loop = true;
             final Intent intent = new Intent(WritePostActivity.this, MainActivity.class);
             switch (v.getId()) {
                 case R.id.check_button:
-                    create_and_Delete(storageRef);
-                    //data_create_and_delete();
-                    data_create_and_delete();
-                    startActivity(intent);
-                    CheckPostActivity.shared_finish = 0;
+                    if (choice_city.equals("") || Title_view.getText().toString().equals("") || RunningPlace_view.getText().toString().equals("") || Comment_view.getText().toString().equals("")) {
+                        Toast.makeText(getApplicationContext(), "내용을 전부 입력해주세요", Toast.LENGTH_SHORT).show();
+                    } else {
+                        create_and_Delete(storageRef);
+                        //data_create_and_delete();
+                        data_create_and_delete();
+                        CheckPostActivity.shared_finish = 0;
+                        startActivity(intent);
+                        loop = false;
+                        break;
+                    }
                     break;
                 case R.id.cancel_button:
                     startActivity(intent);
                     break;
             }
-        }
+            }
     };
     @Override
     public void onPause(){
@@ -414,9 +421,9 @@ public class WritePostActivity extends MainActivity {
             FileOutputStream out = new FileOutputStream(tempFile);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
             out.close();
-            Toast.makeText(getApplicationContext(), "파일저장성공", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "경로저장성공", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            Toast.makeText(getApplicationContext(), "파일저장실패", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "경로저장실패", Toast.LENGTH_SHORT).show();
         }
         return tempFile;
     }

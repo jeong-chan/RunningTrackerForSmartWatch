@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#fff8e1">
 
 
     <LinearLayout
@@ -16,7 +17,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.144"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
         <TextView
             android:id="@+id/textView"
@@ -25,7 +27,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="아이디"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/textView_list_id"
@@ -54,7 +57,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="나이 "
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/textView_list_age"
@@ -82,7 +86,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="키(cm)"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/textView_list_height"
@@ -111,7 +116,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="몸무게(kg)"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/textView_list_weight"
@@ -141,7 +147,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="이름"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/textView_list_name"
@@ -169,7 +176,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="성별"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/textView_list_gender"

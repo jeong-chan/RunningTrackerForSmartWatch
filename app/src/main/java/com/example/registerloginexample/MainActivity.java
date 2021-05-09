@@ -205,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mKcalView.setText("0.00Kcal");
 
 
+
             }
         });
 

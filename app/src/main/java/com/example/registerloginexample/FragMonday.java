@@ -10,6 +10,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +57,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class    FragMonday extends Fragment implements OnMapReadyCallback {
-
     private FragmentActivity mContext;
 
     private static final String TAG = FragMonday.class.getSimpleName();
@@ -189,6 +189,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     public void onPause() {
         super.onPause();
         mapView.onPause();
+
     }
 
     @Override
@@ -243,9 +244,6 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
 
     private void drawsharedpolyline(){
 
-        if(sharedline != null){
-            sharedline = null;
-        }
         if(CheckPostActivity.getsharedlatlng() == 1){
             PolylineOptions rectOptions = new PolylineOptions();
             rectOptions.color(Color.RED);
@@ -259,10 +257,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(FitZoomBound, 200);
             mMap.moveCamera(cu);
 
-            sharedline = null;
-
         }
-        CheckPostActivity.shared_latlng.clear();
     }
     //내 위치 레이어 및 관련 컨트롤 생성
     private void updateLocationUI(){
@@ -395,25 +390,30 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
 
     private void howtoshared(Location currentlocation, ArrayList<LatLng> sharedlocation){
         Boolean remove_yes = false;
+        int msgcount = 0;
         if(sharedline != null){
             for(int i=0;i<sharedlocation.size();i++) {
                 Location shared = new Location(LocationManager.GPS_PROVIDER);
                 shared.setLatitude(sharedlocation.get(i).latitude);
                 shared.setLongitude(sharedlocation.get(i).longitude);
                 double distance = currentlocation.distanceTo(shared);
-                if(distance >= 300){
+                if(distance >= 10){
                     remove_yes = true;
                 }else{remove_yes = false;}
             }
         } else if(sharedline == null){
-
-        }
-        if(remove_yes == true){
-            sharedline.remove();
-            sharedline = null;
-            Toast. makeText( mContext, "경로에서 벗어났습니다.", Toast.LENGTH_SHORT ).show();
             remove_yes = false;
         }
+        if(remove_yes == true) {
+            if(sharedline != null){
+                Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(1000);
+                Toast. makeText( mContext, "경로에서 벗어났습니다.", Toast.LENGTH_SHORT ).show();}
+            sharedline.remove();
+            sharedline = null;
+            remove_yes = false;
+        }
+
 
     }
 
@@ -473,16 +473,16 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
     }
 
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
-        if (currentMarker != null) currentMarker.remove();
+        if (currentMarker != null) {currentMarker.remove();}
 
         LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
+       /* MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(currentLatLng);
         markerOptions.title(markerTitle);
         markerOptions.snippet(markerSnippet);
         markerOptions.draggable(true);
 
-        currentMarker = mMap.addMarker(markerOptions);
+        currentMarker = mMap.addMarker(markerOptions);*/
         if(MainActivity.getIsRunning() == true) {
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
             mMap.moveCamera(cameraUpdate);

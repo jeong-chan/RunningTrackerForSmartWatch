@@ -50,6 +50,8 @@ public class FragTuesday extends Fragment{
             Context context = rootView.getContext();
             RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
             recyclerView.setHasFixedSize(true);
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),new LinearLayoutManager(getActivity()).getOrientation());
+            recyclerView.addItemDecoration(dividerItemDecoration);
             //recyclerView.addItemDecoration(new DividerItemDecoration(rootView.getContext(),1));
 
             layoutManager = new LinearLayoutManager(getContext());
