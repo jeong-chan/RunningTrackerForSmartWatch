@@ -81,7 +81,7 @@
 
         <TextView
             android:id="@+id/tv_Title"
-            android:layout_width="249dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
@@ -103,7 +103,7 @@
 
             <TextView
                 android:id="@+id/tv_id"
-                android:layout_width="56dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="아이디"

@@ -97,9 +97,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //액션바 설정하기//
         //액션바 타이틀 변경하기
-        getSupportActionBar().setTitle("운동관리");
+        getSupportActionBar().setTitle("쏘-스");
         //액션바 배경색 변경
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999));
         //홈버튼 표시
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -152,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 timeThread.interrupt();
 
                 new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("알람 팝업")
+                        .setTitle("공유")
                         .setMessage("공유하시겠습니까?")
                         .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                             @Override

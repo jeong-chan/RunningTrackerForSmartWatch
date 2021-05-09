@@ -15,7 +15,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="RunTracker"
+        android:label="쏘-스"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RegisterLoginExample"
@@ -27,12 +27,17 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCxSnVHyR086a1cX-hEj4Fa0WXUfWV_ATY" />
 
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".LoginActivity">
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
