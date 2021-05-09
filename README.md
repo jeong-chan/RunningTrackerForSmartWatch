@@ -33,18 +33,24 @@ Google API 키를 발급받고 AndoridManifest.xml에 삽입
 ```
 **7. 결과화면** <br>
 --------------------------------------------
- Login & Register<br>
-<img src = "https://user-images.githubusercontent.com/77624879/117568602-2ab9d100-b0fc-11eb-8f27-5086587f5cde.jpg" width="250px">
-<img src = "https://user-images.githubusercontent.com/77624879/117568627-47ee9f80-b0fc-11eb-85bd-588a5e772d6d.jpg" width="250px"><br>
- Main & Board & Statistics <br>
-<img src = "https://user-images.githubusercontent.com/77624879/117568598-25f51d00-b0fc-11eb-8df1-38e278ffbedf.jpg" width="250px">
-<img src = "https://user-images.githubusercontent.com/77624879/117568669-86845a00-b0fc-11eb-98d8-c0adb345aff7.jpg" width="250px">
-<img src = "https://user-images.githubusercontent.com/77624879/117568636-5472f800-b0fc-11eb-9c03-acbec31b658d.jpg" width="250px"><br>
+ Loading<br>
+<img src = "https://user-images.githubusercontent.com/77624879/117571540-f4834e00-b109-11eb-936a-691d3182bf37.jpg" width="250px"><br>
+ Login & Register & Profile<br>
+<img src = "https://user-images.githubusercontent.com/77624879/117571507-cc93ea80-b109-11eb-9c75-12c59532816a.jpg" width="250px">
+<img src = "https://user-images.githubusercontent.com/77624879/117571688-9dca4400-b10a-11eb-8896-65ff57b786ae.jpg" width="250px">
+<img src = "https://user-images.githubusercontent.com/77624879/117571557-0e249580-b10a-11eb-9af1-c8074d07c20b.jpg" width="250px"><br>
+ Main & Board<br>
+<img src = "https://user-images.githubusercontent.com/77624879/117571666-80957580-b10a-11eb-97b9-40e51b35dbca.jpg" width="250px">
+<img src = "https://user-images.githubusercontent.com/77624879/117571517-dae20680-b109-11eb-98b1-aceac9537238.jpg" width="250px">
+<img src = "https://user-images.githubusercontent.com/77624879/117571348-2942d580-b109-11eb-9bff-25e0c02111cc.jpg" width="250px"><br>
+ Statistics & Calendar
+<img src = "https://user-images.githubusercontent.com/77624879/117568636-5472f800-b0fc-11eb-9c03-acbec31b658d.jpg" width="250px">
+<img src = "https://user-images.githubusercontent.com/77624879/117571433-85a5f500-b109-11eb-86fe-19fc3843b2f0.jpg" width="250px"><br>
  WritePost & CheckPost<br>
-<img src = "https://user-images.githubusercontent.com/77624879/117568588-15dd3d80-b0fc-11eb-95a1-e422dc44cf78.jpg" width="250px">
-<img src = "https://user-images.githubusercontent.com/77624879/117568612-3c9b7400-b0fc-11eb-82d0-e49eb990beb9.jpg" width="250px"><br>
+<img src = "https://user-images.githubusercontent.com/77624879/117571603-3ad8ad00-b10a-11eb-818e-314cf7793375.jpg" width="250px">
+<img src = "https://user-images.githubusercontent.com/77624879/117571617-4926c900-b10a-11eb-8ca9-e4f2a373a581.jpg" width="250px"><br>
  SharedRouteInMap<br>
-<img src = "https://user-images.githubusercontent.com/77624879/117568577-02ca6d80-b0fc-11eb-9a61-3cb119e514bb.jpg" width="250px"><br>
+<img src = "https://user-images.githubusercontent.com/77624879/117571646-6a87b500-b10a-11eb-86ef-849afef9e045.jpg" width="250px"><br>
  
 
  
