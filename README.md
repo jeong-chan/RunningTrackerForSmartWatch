@@ -51,7 +51,13 @@ Google API 키를 발급받고 AndoridManifest.xml에 삽입
 <img src = "https://user-images.githubusercontent.com/77624879/117571603-3ad8ad00-b10a-11eb-818e-314cf7793375.jpg" width="250px">
 <img src = "https://user-images.githubusercontent.com/77624879/117571617-4926c900-b10a-11eb-8ca9-e4f2a373a581.jpg" width="250px"><br>
  SharedRouteInMap<br>
-<img src = "https://user-images.githubusercontent.com/77624879/117571646-6a87b500-b10a-11eb-86ef-849afef9e045.jpg" width="250px"><br>
+<img src = "https://user-images.githubusercontent.com/77624879/117571646-6a87b500-b10a-11eb-86ef-849afef9e045.jpg" width="250px"><br><br>
+**8. 참고자료** <br>
+-------------------------------------------------
+ 1. [https://en.wikipedia.org/wiki/Metabolic_equivalent_of_task] Metabolic equivalent of task, Wikipedia <br>
+ 2. [https://www.nibiohn.go.jp/eiken/programs/pdf/guidelines2006_ko.pdf] 건강증진을 위한 논문 기준, 2006<br>
+ 3. [ https://material.io/resources/color/#!/?view.left=0&view.right=0 ] Material Design<br>
+ 4. [ https://developers.google.com/ ] Google Developer<br>
  
 
  
