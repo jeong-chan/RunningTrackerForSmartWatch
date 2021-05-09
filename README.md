@@ -43,7 +43,7 @@ Google API 키를 발급받고 AndoridManifest.xml에 삽입
 <img src = "https://user-images.githubusercontent.com/77624879/117571666-80957580-b10a-11eb-97b9-40e51b35dbca.jpg" width="250px">
 <img src = "https://user-images.githubusercontent.com/77624879/117571517-dae20680-b109-11eb-98b1-aceac9537238.jpg" width="250px">
 <img src = "https://user-images.githubusercontent.com/77624879/117571348-2942d580-b109-11eb-9bff-25e0c02111cc.jpg" width="250px"><br>
- Statistics & Calendar
+ Statistics & Calendar<br>
 <img src = "https://user-images.githubusercontent.com/77624879/117568636-5472f800-b0fc-11eb-9c03-acbec31b658d.jpg" width="250px">
 <img src = "https://user-images.githubusercontent.com/77624879/117571433-85a5f500-b109-11eb-86fe-19fc3843b2f0.jpg" width="250px"><br>
  WritePost & CheckPost<br>
