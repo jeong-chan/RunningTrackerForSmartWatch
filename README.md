@@ -26,6 +26,7 @@
 **6. 사용법** <br>
 --------------------------------------------
 사용자는 소스코드를 Clone시켜 사용하고, 개인 Google API를 발급하여 삽입한다.<br><br>
+Google API KEY 발급 방법 참고: https://sothecode.tistory.com/59<br>
 Google API 키를 발급받고 AndoridManifest.xml에 삽입
 ```
 <meta-data
@@ -55,9 +56,8 @@ Google API 키를 발급받고 AndoridManifest.xml에 삽입
 **8. 참고자료** <br>
 -------------------------------------------------
  1. [https://en.wikipedia.org/wiki/Metabolic_equivalent_of_task] Metabolic equivalent of task, Wikipedia <br>
- 2. [https://www.nibiohn.go.jp/eiken/programs/pdf/guidelines2006_ko.pdf] 건강증진을 위한 논문 기준, 2006<br>
- 3. [ https://material.io/resources/color/#!/?view.left=0&view.right=0 ] Material Design<br>
- 4. [ https://developers.google.com/ ] Google Developer<br>
+ 2. [ https://material.io/resources/color/#!/?view.left=0&view.right=0 ] Material Design<br>
+ 3. [ https://developers.google.com/ ] Google Developer<br>
  
 
  
