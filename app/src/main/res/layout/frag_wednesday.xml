@@ -23,7 +23,7 @@
         app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toEndOf="@+id/start_date"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="16dp"
+        android:textSize="15dp"
         />
 
     <EditText
@@ -40,55 +40,91 @@
         app:layout_constraintHorizontal_bias="0.112"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="16dp"/>
+        android:textSize="15dp"/>
 
-    <EditText
-        android:id="@+id/timedata"
+    <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="28dp"
+        android:text="총 달린 거리:"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/disdata"
+        app:layout_constraintHorizontal_bias="0.778"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/timedata"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="228dp"
         android:cursorVisible="false"
         android:ems="10"
-        android:gravity="center"
+        android:gravity="left"
         android:inputType="none"
         android:text="time"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="16dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/disdata"
+    <TextView
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="228dp"
+        android:text="총 달린 시간:"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/timedata"
+        app:layout_constraintHorizontal_bias="0.779"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/disdata"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:cursorVisible="false"
         android:ems="10"
+        android:gravity="left"
         android:inputType="none"
         android:text="distance"
-        android:cursorVisible="false"
-        android:gravity="center"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/timedata"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/timedata"
-        app:layout_constraintTop_toBottomOf="@+id/timedata"
-        android:textSize="16dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/timedata" />
 
-    <EditText
-        android:id="@+id/kcaldata"
+    <TextView
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="none"
+        android:layout_marginTop="28dp"
+        android:text="총 소모된 칼로리:"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/kcaldata"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/kcaldata"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
         android:cursorVisible="false"
+        android:ems="10"
+        android:gravity="left"
+        android:inputType="none"
         android:text="kcal"
-        android:gravity="center"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/disdata"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/disdata"
-        app:layout_constraintTop_toBottomOf="@+id/disdata"
-        android:textSize="16dp"/>
-
-
+        app:layout_constraintTop_toBottomOf="@+id/disdata" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

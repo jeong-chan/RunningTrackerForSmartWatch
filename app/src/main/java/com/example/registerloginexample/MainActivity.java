@@ -253,7 +253,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // 통계에서 달력에서 날짜 선택
     public void processDatePickerResult(String dateMessage) {
-        EditText et_start,et_end;
+        EditText et_start = null ,et_end=null;
+
 
         // 선택한 날짜 화면에 띄우기
         dates.add(dateMessage);
@@ -349,7 +350,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
         }
-        for (int j = 0; j < size; j++) {
+        for (int j = size-1; j > 0; j--) {
             if (end.equals(LoginActivity.run_db.getRun_date().get(j))) {
                 iend = j;
                 System.out.println("인덱스 끝"+iend);
@@ -395,7 +396,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @SuppressLint("DefaultLocale") String result = String.format("%02d:%02d:%02d:%02d", sta_hour, sta_min, sta_Sec, sta_mSec);
 
 
-            runtime.setText(result);
+            runtime.setText( result);
             runDis.setText(Double.toString(rDis) + " km");
             runkcal.setText(Double.toString(rKcal) + " kcal");
         }

@@ -397,7 +397,7 @@ public class    FragMonday extends Fragment implements OnMapReadyCallback {
                 shared.setLatitude(sharedlocation.get(i).latitude);
                 shared.setLongitude(sharedlocation.get(i).longitude);
                 double distance = currentlocation.distanceTo(shared);
-                if(distance >= 10){
+                if(distance >= 50){
                     remove_yes = true;
                 }else{remove_yes = false;}
             }
